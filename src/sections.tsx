@@ -872,15 +872,25 @@ export function Locations() {
   );
 }
 
-export function SalonCard({ loc, compact = false }: { loc: Location; compact?: boolean }) {
+export function SalonCard({
+  loc,
+  compact = false,
+  hideImage = false,
+}: {
+  loc: Location;
+  compact?: boolean;
+  hideImage?: boolean;
+}) {
   const isOpenToday = new Date().getDay() !== 0; // Sunday = 0, both salons closed
   return (
     <article id={loc.id} className="h-full scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
-      <StylishPhoto
-        src={loc.image}
-        alt={`${loc.name} team`}
-        className={compact ? 'aspect-[16/9]' : 'aspect-[16/8]'}
-      />
+      {!hideImage && (
+        <StylishPhoto
+          src={loc.image}
+          alt={`${loc.name} shopfront`}
+          className={compact ? 'aspect-[16/9]' : 'aspect-[16/8]'}
+        />
+      )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl text-ink-950">{loc.name}</h3>

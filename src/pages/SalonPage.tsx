@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CTA, Reviews, SalonCard, Services, StylishPhoto } from '../sections';
+import { CTA, Reviews, SalonCard, Services } from '../sections';
 import { LOCATIONS, type Location } from '../data';
 
 export function BrentwoodSalonPage() {
@@ -15,7 +15,7 @@ function SalonPage({ loc, otherSlug, otherShort }: { loc: Location; otherSlug: s
     <>
       <section className="relative overflow-hidden border-b border-ink-900/10">
         <div className="absolute inset-0 cream-grain opacity-60" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10 items-center">
+        <div className="relative mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10 items-start">
           <div className="md:col-span-7">
             <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">{loc.short} Salon</p>
             <h1 className="mt-3 font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink-950 leading-tight">
@@ -47,20 +47,10 @@ function SalonPage({ loc, otherSlug, otherShort }: { loc: Location; otherSlug: s
               </Link>
             </div>
           </div>
-          <div className="md:col-span-5">
-            <div className="rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
-              <StylishPhoto
-                src={loc.image}
-                alt={`${loc.name} team`}
-                className="aspect-[4/3]"
-              />
-            </div>
+          <div className="md:col-span-5 md:sticky md:top-24">
+            <SalonCard loc={loc} hideImage />
           </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5">
-        <SalonCard loc={loc} />
       </section>
 
       <Services />
