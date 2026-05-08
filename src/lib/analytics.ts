@@ -1,7 +1,9 @@
 import posthog from 'posthog-js';
 
 const POSTHOG_KEY = 'phc_oXvHtxfQQmL9bRH3MdnZbU4JVoTp7XCGUS6tNp9ZPXkz';
-const POSTHOG_HOST = 'https://us.i.posthog.com';
+// Reverse-proxied through Vercel (vercel.json rewrites /ingest/* -> us.i.posthog.com/*)
+// so ad / tracker blockers don't see "posthog.com" in the request URL.
+const POSTHOG_HOST = '/ingest';
 
 let initialized = false;
 
