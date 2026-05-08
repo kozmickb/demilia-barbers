@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { AnalyticsTracker } from './components/AnalyticsTracker';
 import { SiteLayout } from './layouts/SiteLayout';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -11,6 +12,7 @@ import ContactPage from './pages/ContactPage';
 export default function App() {
   return (
     <BrowserRouter>
+      <AnalyticsTracker />
       <Routes>
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />

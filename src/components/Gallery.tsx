@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { GALLERY } from '../data/gallery';
+import { track } from '../lib/analytics';
 
 export function Gallery() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -61,7 +62,10 @@ export function Gallery() {
             <button
               key={img.id}
               type="button"
-              onClick={() => setActiveIndex(i)}
+              onClick={() => {
+                track('gallery_image_opened', { index: i, alt: img.alt });
+                setActiveIndex(i);
+              }}
               className="group mb-3 md:mb-4 block w-full break-inside-avoid overflow-hidden rounded-xl border border-ink-900/5 bg-bone-100 shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-italia-green"
               aria-label={`Open image ${i + 1} of ${GALLERY.length}: ${img.alt}`}
               role="listitem"

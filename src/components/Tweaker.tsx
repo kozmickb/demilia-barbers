@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme, type AccentKey, type DensityKey, type FontKey, type ThemeMode } from '../theme/ThemeProvider';
+import { track } from '../lib/analytics';
 
 const HINT_KEY = 'demilia-tweaker-hint-seen';
 
@@ -95,7 +96,12 @@ export function Tweaker() {
 
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() =>
+            setOpen((v) => {
+              track(v ? 'tweaker_closed' : 'tweaker_opened');
+              return !v;
+            })
+          }
           aria-label={open ? 'Close style tweaks' : 'Open style tweaks'}
           aria-expanded={open}
           className="relative grid h-12 w-12 place-items-center rounded-full border border-ink-900/15 bg-italia-green text-bone-50 shadow-card hover:scale-105 active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-italia-red"
@@ -143,7 +149,10 @@ export function Tweaker() {
                 <PresetButton
                   key={mode}
                   active={theme.mode === mode}
-                  onClick={() => theme.set('mode', mode)}
+                  onClick={() => {
+                    theme.set('mode', mode);
+                    track('theme_mode_changed', { mode });
+                  }}
                   title={mode === 'light' ? 'Light' : 'Dark'}
                   subtitle={mode === 'light' ? 'Cream editorial' : 'Deep ink'}
                   swatch={
@@ -163,7 +172,10 @@ export function Tweaker() {
                 <PresetButton
                   key={a.key}
                   active={theme.accent === a.key}
-                  onClick={() => theme.set('accent', a.key)}
+                  onClick={() => {
+                    theme.set('accent', a.key);
+                    track('theme_accent_changed', { accent: a.key });
+                  }}
                   title={a.label}
                   swatch={
                     <div className="flex h-8 w-full overflow-hidden rounded-md border border-ink-900/10">
@@ -182,7 +194,10 @@ export function Tweaker() {
                 <button
                   key={f.key}
                   type="button"
-                  onClick={() => theme.set('font', f.key)}
+                  onClick={() => {
+                    theme.set('font', f.key);
+                    track('theme_font_changed', { font: f.key });
+                  }}
                   className={
                     'w-full flex items-center justify-between rounded-xl border px-4 py-3 text-left transition ' +
                     (theme.font === f.key
@@ -208,7 +223,10 @@ export function Tweaker() {
                 <PresetButton
                   key={d.key}
                   active={theme.density === d.key}
-                  onClick={() => theme.set('density', d.key)}
+                  onClick={() => {
+                    theme.set('density', d.key);
+                    track('theme_density_changed', { density: d.key });
+                  }}
                   title={d.label}
                   subtitle={d.hint}
                 />

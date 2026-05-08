@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal } from './components/Reveal';
 import { Counter, HeroOrbs, Marquee, Parallax, Tilt, WordReveal } from './components/effects';
+import { track } from './lib/analytics';
 import logoUrl from './assets/demilia-logo.png';
 import heroImg from './assets/demilia-shop1.png';
 import qloLogoUrl from './assets/qlo-logo.png';
@@ -205,7 +206,12 @@ export function BookingProposal() {
           </div>
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => {
+              setOpen((v) => {
+                track(v ? 'booking_collapsed' : 'booking_expanded');
+                return !v;
+              });
+            }}
             aria-expanded={open}
             aria-controls="booking-picker"
             className="rounded-full bg-ink-950 px-5 py-3 text-sm font-semibold text-bone-50 hover:bg-ink-800 transition flex items-center gap-2 shrink-0"
@@ -388,6 +394,7 @@ export function QloProposal() {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label="Download Qlo on the App Store"
+                onClick={() => track('qlo_app_store_clicked')}
                 className="inline-flex items-center gap-3 rounded-xl bg-ink-950 text-bone-50 pl-3 pr-4 py-2 hover:bg-ink-800 transition shadow-card"
               >
                 <AppleIcon className="h-6 w-6" />
@@ -401,7 +408,12 @@ export function QloProposal() {
           </div>
           <button
             type="button"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => {
+              setOpen((v) => {
+                track(v ? 'qlo_collapsed' : 'qlo_expanded');
+                return !v;
+              });
+            }}
             aria-expanded={open}
             aria-controls="qlo-detail"
             className="rounded-full bg-italia-red px-5 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 transition flex items-center gap-2 shrink-0"
