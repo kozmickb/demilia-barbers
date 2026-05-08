@@ -99,14 +99,11 @@ export function WordReveal({
       {words.map((w, i) => {
         const isHighlight = highlight && (w === highlight || text.indexOf(highlight) >= 0 && text.indexOf(highlight, text.indexOf(highlight)) === text.indexOf(w));
         return (
-          <span
-            key={`${w}-${i}`}
-            className="inline-block overflow-hidden align-baseline"
-          >
+          <span key={`${w}-${i}`} className="inline-block">
             <span
               className={
                 'inline-block transition-all duration-700 ease-out ' +
-                (shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[0.6em]') +
+                (shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[0.25em]') +
                 (isHighlight ? ' ' + highlightClassName : '')
               }
               style={{ transitionDelay: shown ? `${i * stagger}ms` : '0ms' }}

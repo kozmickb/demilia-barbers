@@ -33,7 +33,7 @@ export function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-italia-green animate-pulse" />
             Website refresh proposal &middot; Brentwood &amp; Upminster
           </span>
-          <h1 className="mt-5 font-display font-semibold text-4xl sm:text-5xl md:text-7xl leading-[1.02] md:leading-[0.98] tracking-tight text-ink-950">
+          <h1 className="mt-5 font-display font-semibold text-4xl sm:text-5xl md:text-7xl leading-[1.1] md:leading-[1.05] tracking-tight text-ink-950 pb-1">
             <WordReveal text="A site that does justice to" />{' '}
             <em className="text-italia-red not-italic">
               <WordReveal text="twenty plus years" stagger={70} />
