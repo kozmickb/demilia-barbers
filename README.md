@@ -62,12 +62,41 @@ Service prices and individual review names are realistic placeholders (Brentwood
 
 ```
 src/
-  App.tsx           - whole prototype
-  index.css         - Tailwind + small custom utilities (italia-stripe, cream-grain)
+  App.tsx                    - top-level composition + sections
+  index.css                  - CSS variables for theming + density + helpers
   main.tsx
   assets/
     demilia-logo.png
     demilia-hero.jpg
     demilia-shop1.png
     demilia-shop2.jpg
+  components/
+    Gallery.tsx              - masonry gallery + lightbox
+    Tweaker.tsx              - floating drawer to swap theme/accent/font/density
+  data/
+    gallery.ts               - 24 real gallery photos via Wix CDN
+  theme/
+    ThemeProvider.tsx        - localStorage-backed theme context
 ```
+
+## Sections (every Wix link mapped to an in-page anchor)
+
+| Wix link              | Anchor              | Notes |
+| --------------------- | ------------------- | --- |
+| Home                  | `#top`              | Hero + booking widget |
+| About Us              | `#about`            | Real "since 1999" copy + 4 craft cards |
+| Brentwood Salon       | `#brentwood`        | Address, travel, parking, hours, "highest-rated in Brentwood" |
+| Upminster Salon       | `#upminster`        | Address, travel, parking, hours, "the original" |
+| Gallery               | `#gallery`          | 24 real photos, masonry + lightbox |
+| Contact Us            | `#contact`          | Form + email + both phones + socials |
+
+## Tweak drawer
+
+Floating button bottom-right opens a drawer that lets the visitor (or staff) swap:
+
+- **Theme**: light cream <-> deep ink
+- **Accent palette**: 4 presets that all stay close to the Italian-heritage vibe (Italian Emerald, Espresso Navy, Warm Sage, Oxblood Brass)
+- **Typeface pair**: Editorial (Playfair + Inter), Modern (DM Serif + Inter), Classic (Cormorant + Crimson Pro), Clean Sans (Manrope only)
+- **Density**: comfortable / compact (compact is useful when capturing a short screenshot)
+
+Selections persist to `localStorage` under the `demilia-theme-v1` key. Implementation: CSS custom properties on `<html>`, swapped via `data-theme` / `data-accent` / `data-font` / `data-density` attributes. Tailwind colours (`bone`, `ink`, `italia.green`, `italia.red`) are wired to those vars, so nothing in the markup needs changing per-theme.

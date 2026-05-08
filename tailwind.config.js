@@ -1,31 +1,33 @@
 /** @type {import('tailwindcss').Config} */
+const rgb = (v) => `rgb(${v} / <alpha-value>)`;
+
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
         bone: {
-          50: '#fbf8f3',
-          100: '#f4ecdf',
-          200: '#e8dcc4',
-          300: '#d8c7a3',
+          50: rgb('var(--bone-50)'),
+          100: rgb('var(--bone-100)'),
+          200: rgb('var(--bone-200)'),
+          300: rgb('var(--bone-300)'),
         },
         ink: {
-          950: '#0d0d0d',
-          900: '#171717',
-          800: '#1f1f1f',
-          700: '#2a2a2a',
-          500: '#525252',
-          400: '#737373',
+          400: rgb('var(--ink-400)'),
+          500: rgb('var(--ink-500)'),
+          700: rgb('var(--ink-700)'),
+          800: rgb('var(--ink-800)'),
+          900: rgb('var(--ink-900)'),
+          950: rgb('var(--ink-950)'),
         },
         italia: {
-          green: '#0a6b3b',
-          red: '#b71c2a',
+          green: rgb('var(--accent)'),
+          red: rgb('var(--accent-2)'),
         },
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)'],
+        sans: ['var(--font-body)'],
       },
       boxShadow: {
         soft: '0 30px 60px -30px rgba(0,0,0,0.25)',

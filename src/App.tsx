@@ -4,12 +4,14 @@ import heroImg from './assets/demilia-shop1.png';
 import shopBrentwood from './assets/demilia-shop2.jpg';
 import shopUpminster from './assets/demilia-hero.jpg';
 import { Gallery } from './components/Gallery';
+import { Tweaker } from './components/Tweaker';
+import { ThemeProvider } from './theme/ThemeProvider';
 
 const NAV = [
-  { label: 'Services', href: '#services' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'The Chair', href: '#team' },
+  { label: 'About', href: '#about' },
   { label: 'Salons', href: '#locations' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 const SERVICES = [
@@ -43,13 +45,18 @@ const TIMES = ['09:30', '10:15', '11:00', '12:30', '14:15', '15:00', '16:45', '1
 
 const LOCATIONS = [
   {
+    id: 'brentwood',
     name: 'Brentwood Salon',
     short: 'Brentwood',
-    address: '23a Ongar Road, Brentwood, CM15 9AU',
+    address: '23a Ongar Road, Brentwood, Essex, CM15 9AU',
     phone: '01277 200008',
     phoneHref: 'tel:01277200008',
     mapsHref: 'https://www.google.com/maps/dir/?api=1&destination=23A%20Ongar%20Rd,%20Brentwood%20CM15%209AU,%20UK',
     image: shopBrentwood,
+    headline: 'The highest-rated salon in Brentwood.',
+    where: 'Top of the High Street on Ongar Road (A128), opposite Sainsbury’s.',
+    travel: 'Brentwood station is a 15 minute walk.',
+    parking: 'Sainsbury’s car park opposite, or William Hunter Way (5 minute walk).',
     hours: [
       { d: 'Mon to Tue', h: '9:00 - 18:30' },
       { d: 'Wednesday', h: '9:00 - 19:30' },
@@ -59,13 +66,18 @@ const LOCATIONS = [
     ],
   },
   {
+    id: 'upminster',
     name: 'Upminster Salon',
     short: 'Upminster',
-    address: '164b Upminster Road, Upminster, RM14 2RB',
+    address: '164b Upminster Road, Upminster, Essex, RM14 2RB',
     phone: '01708 440144',
     phoneHref: 'tel:01708440144',
     mapsHref: 'https://www.google.com/maps/place/164B+Upminster+Rd,+Upminster+RM14+2RB',
     image: shopUpminster,
+    headline: 'The original. Where Arnie opened the doors.',
+    where: 'Upminster Bridge, opposite the Windmill Pub, next to Co-Op.',
+    travel: 'Upminster Bridge station is a 2 minute walk; Upminster Station is 10 minutes.',
+    parking: 'Two spaces directly outside the shop, or 2 hours free at Co-Op next door.',
     hours: [
       { d: 'Mon to Wed', h: '9:00 - 18:30' },
       { d: 'Thursday', h: '9:00 - 19:30' },
@@ -114,29 +126,34 @@ export default function App() {
   const [activeService, setActiveService] = useState(0);
 
   return (
-    <div className="min-h-screen bg-bone-50 text-ink-900">
-      <Topbar />
-      <Header />
-      <Hero />
-      <BookingPreview
-        days={days}
-        activeDay={activeDay}
-        setActiveDay={setActiveDay}
-        activeTime={activeTime}
-        setActiveTime={setActiveTime}
-        activeLocation={activeLocation}
-        setActiveLocation={setActiveLocation}
-        activeService={activeService}
-        setActiveService={setActiveService}
-      />
-      <Services />
-      <Team />
-      <Gallery />
-      <Reviews />
-      <Locations />
-      <CTA />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-bone-50 text-ink-900">
+        <Topbar />
+        <Header />
+        <Hero />
+        <BookingPreview
+          days={days}
+          activeDay={activeDay}
+          setActiveDay={setActiveDay}
+          activeTime={activeTime}
+          setActiveTime={setActiveTime}
+          activeLocation={activeLocation}
+          setActiveLocation={setActiveLocation}
+          activeService={activeService}
+          setActiveService={setActiveService}
+        />
+        <About />
+        <Services />
+        <Team />
+        <Gallery />
+        <Reviews />
+        <Locations />
+        <Contact />
+        <CTA />
+        <Footer />
+        <Tweaker />
+      </div>
+    </ThemeProvider>
   );
 }
 
@@ -163,7 +180,7 @@ function Header() {
     <header className="sticky top-0 z-30 bg-bone-50/90 backdrop-blur border-b border-ink-900/10">
       <div className="mx-auto max-w-6xl px-5 py-4 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center gap-3">
-          <img src={logoUrl} alt="De'Milia Italian Barbershop" className="h-10 md:h-12 w-auto" />
+          <img src={logoUrl} alt="De'Milia Italian Barbershop" className="demilia-logo h-10 md:h-12 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-ink-700">
           {NAV.map((item) => (
@@ -187,7 +204,7 @@ function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0 cream-grain opacity-60" aria-hidden />
-      <div className="relative mx-auto max-w-6xl px-5 pt-14 pb-16 md:pt-20 md:pb-24 grid md:grid-cols-12 gap-10 items-center">
+      <div className="relative mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-7">
           <span className="inline-flex items-center gap-2 rounded-full border border-italia-green/30 bg-italia-green/5 px-3 py-1 text-xs font-medium text-italia-green">
             <span className="h-1.5 w-1.5 rounded-full bg-italia-green" />
@@ -237,7 +254,7 @@ function HeroCard() {
   return (
     <div className="relative">
       <div className="absolute -inset-3 rounded-3xl bg-italia-green/5 blur-xl" />
-      <div className="relative rounded-2xl overflow-hidden border border-ink-900/10 bg-white shadow-card">
+      <div className="relative rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
         <div className="aspect-[4/5] bg-ink-950 relative">
           <img src={heroImg} alt="De'Milia barber at work" className="absolute inset-0 h-full w-full object-cover opacity-95" />
           <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-ink-950/85 via-ink-950/40 to-transparent">
@@ -299,8 +316,8 @@ function BookingPreview({
   setActiveService,
 }: BookingProps) {
   return (
-    <section id="book" className="border-y border-ink-900/10 bg-white">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+    <section id="book" className="border-y border-ink-900/10 bg-bone-100">
+      <div className="mx-auto max-w-6xl px-5">
         <div className="flex items-end justify-between gap-6 mb-8">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">The booking page that should be there</p>
@@ -322,8 +339,8 @@ function BookingPreview({
                   className={classNames(
                     'w-full text-left rounded-xl border px-4 py-3 transition',
                     activeLocation === i
-                      ? 'border-ink-950 bg-white shadow-card'
-                      : 'border-ink-900/10 bg-white hover:border-ink-900/30',
+                      ? 'border-ink-950 bg-bone-50 shadow-card'
+                      : 'border-ink-900/10 bg-bone-50 hover:border-ink-900/30',
                   )}
                 >
                   <div className="font-semibold text-ink-950">{loc.name}</div>
@@ -341,8 +358,8 @@ function BookingPreview({
                   className={classNames(
                     'w-full flex items-center justify-between rounded-xl border px-4 py-2.5 text-sm transition',
                     activeService === i
-                      ? 'border-ink-950 bg-white shadow-card'
-                      : 'border-ink-900/10 bg-white hover:border-ink-900/30',
+                      ? 'border-ink-950 bg-bone-50 shadow-card'
+                      : 'border-ink-900/10 bg-bone-50 hover:border-ink-900/30',
                   )}
                 >
                   <span className="text-ink-950">{s.name}</span>
@@ -369,8 +386,8 @@ function BookingPreview({
                     d.closed
                       ? 'border-ink-900/5 bg-bone-100 text-ink-400 line-through cursor-not-allowed'
                       : activeDay === i
-                        ? 'border-ink-950 bg-white shadow-card'
-                        : 'border-ink-900/10 bg-white hover:border-ink-900/30',
+                        ? 'border-ink-950 bg-bone-50 shadow-card'
+                        : 'border-ink-900/10 bg-bone-50 hover:border-ink-900/30',
                   )}
                 >
                   <div className="text-[10px] uppercase tracking-widest text-ink-500">{d.label}</div>
@@ -388,7 +405,7 @@ function BookingPreview({
                     'rounded-xl border py-3 text-sm font-medium transition',
                     activeTime === t
                       ? 'border-italia-green bg-italia-green text-bone-50 shadow-card'
-                      : 'border-ink-900/10 bg-white text-ink-900 hover:border-ink-900/30',
+                      : 'border-ink-900/10 bg-bone-50 text-ink-900 hover:border-ink-900/30',
                   )}
                 >
                   {t}
@@ -419,7 +436,7 @@ function BookingPreview({
 
 function Services() {
   return (
-    <section id="services" className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+    <section id="services" className="mx-auto max-w-6xl px-5">
       <div className="flex items-end justify-between gap-6 mb-8">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">The menu</p>
@@ -433,7 +450,7 @@ function Services() {
         {SERVICES.map((s) => (
           <div
             key={s.name}
-            className="flex items-baseline justify-between gap-4 rounded-xl border border-ink-900/10 bg-white px-5 py-4"
+            className="flex items-baseline justify-between gap-4 rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4"
           >
             <div>
               <div className="font-display text-xl text-ink-950">{s.name}</div>
@@ -453,7 +470,7 @@ function Services() {
 function Team() {
   return (
     <section id="team" className="border-y border-ink-900/10 bg-ink-950 text-bone-50">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20 grid md:grid-cols-12 gap-10 items-center">
+      <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-6">
           <p className="text-xs uppercase tracking-[0.2em] text-italia-red font-semibold">The chair</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-bone-50 leading-tight">
@@ -506,20 +523,20 @@ function TeamCard({ name, role, years, shop }: { name: string; role: string; yea
 
 function Reviews() {
   return (
-    <section id="reviews" className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+    <section id="reviews" className="mx-auto max-w-6xl px-5">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-8">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">What clients say</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Five-star regulars across both salons.</h2>
         </div>
-        <div className="rounded-full border border-ink-900/10 bg-white px-4 py-2 text-sm font-semibold text-ink-900 flex items-center gap-2 shadow-card">
+        <div className="rounded-full border border-ink-900/10 bg-bone-50 px-4 py-2 text-sm font-semibold text-ink-900 flex items-center gap-2 shadow-card">
           <span className="text-italia-red text-base">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span>130+ 5-star reviews on Google</span>
         </div>
       </div>
       <div className="grid md:grid-cols-3 gap-4">
         {REVIEWS.map((r) => (
-          <figure key={r.name} className="rounded-2xl border border-ink-900/10 bg-white p-5 shadow-card">
+          <figure key={r.name} className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card">
             <div className="text-italia-red text-lg tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             <blockquote className="mt-3 text-ink-900 leading-relaxed">&ldquo;{r.body}&rdquo;</blockquote>
             <figcaption className="mt-4 text-sm text-ink-500">
@@ -535,14 +552,18 @@ function Reviews() {
 function Locations() {
   return (
     <section id="locations" className="border-y border-ink-900/10 bg-bone-100">
-      <div className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+      <div className="mx-auto max-w-6xl px-5">
         <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">Two salons, one diary</p>
         <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Find us in Brentwood and Upminster.</h2>
 
         <div className="mt-10 grid md:grid-cols-2 gap-5">
           {LOCATIONS.map((loc) => (
-            <div key={loc.name} className="overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card">
-              <div className="aspect-[16/9] bg-ink-200 overflow-hidden">
+            <article
+              key={loc.name}
+              id={loc.id}
+              className="scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card"
+            >
+              <div className="aspect-[16/9] bg-ink-700 overflow-hidden">
                 <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover" />
               </div>
               <div className="p-6">
@@ -552,12 +573,21 @@ function Locations() {
                     Open today
                   </span>
                 </div>
+                <p className="mt-2 text-sm text-ink-700 italic">{loc.headline}</p>
+
                 <dl className="mt-5 space-y-2 text-sm">
                   <Row label="Address" value={loc.address} />
                   <Row label="Phone" value={loc.phone} href={loc.phoneHref} />
                   <Row label="Email" value="info@demiliabarbers.co.uk" href="mailto:info@demiliabarbers.co.uk" />
                 </dl>
-                <div className="mt-5 rounded-xl bg-bone-50 border border-ink-900/5 p-4">
+
+                <div className="mt-5 grid sm:grid-cols-3 gap-3 text-xs">
+                  <Detail label="Where" value={loc.where} />
+                  <Detail label="By train" value={loc.travel} />
+                  <Detail label="Parking" value={loc.parking} />
+                </div>
+
+                <div className="mt-5 rounded-xl bg-bone-100 border border-ink-900/5 p-4">
                   <div className="text-[10px] uppercase tracking-[0.2em] text-ink-500 mb-2">Opening hours</div>
                   <dl className="grid grid-cols-2 gap-y-1 text-xs text-ink-700">
                     {loc.hours.map((h) => (
@@ -585,11 +615,20 @@ function Locations() {
                   </a>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function Detail({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-ink-900/5 bg-bone-100 p-3">
+      <div className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</div>
+      <div className="mt-1 text-ink-900 leading-snug">{value}</div>
+    </div>
   );
 }
 
@@ -612,7 +651,7 @@ function Row({ label, value, href }: { label: string; value: string; href?: stri
 
 function CTA() {
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16 md:py-24">
+    <section className="mx-auto max-w-6xl px-5">
       <div className="relative overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-950 text-bone-50 p-8 md:p-14 text-center">
         <div className="absolute top-0 left-0 right-0 italia-stripe h-1.5" aria-hidden />
         <h2 className="font-display text-3xl md:text-5xl">Stop missing calls. Start filling chairs.</h2>
@@ -625,7 +664,7 @@ function CTA() {
             See the live booking demo
           </a>
           <a
-            href="mailto:hello@appening.now?subject=De%27Milia%20Barbers%20website"
+            href="mailto:karo@appeningnow.com?subject=De%27Milia%20Barbers%20website"
             className="rounded-full border border-bone-50/20 px-6 py-3 text-sm font-semibold text-bone-50 hover:bg-white/10 transition"
           >
             Talk to Appening Now
@@ -641,7 +680,7 @@ function Footer() {
     <footer className="border-t border-ink-900/10 bg-bone-50">
       <div className="mx-auto max-w-6xl px-5 py-12 grid md:grid-cols-3 gap-8 text-sm">
         <div>
-          <img src={logoUrl} alt="De'Milia Italian Barbershop" className="h-12 w-auto" />
+          <img src={logoUrl} alt="De'Milia Italian Barbershop" className="demilia-logo h-12 w-auto" />
           <p className="mt-4 text-ink-700 max-w-xs">
             Italian Barbershop, Brentwood and Upminster. Cutting hair the right way since 2004.
           </p>
@@ -697,5 +736,262 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function About() {
+  return (
+    <section id="about" className="bg-bone-50 scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-10 items-start">
+        <div className="md:col-span-5">
+          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">About De&apos;Milia</p>
+          <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950 leading-tight">
+            Serving Essex and Londoners since 1999.
+          </h2>
+          <p className="mt-4 text-ink-700 leading-relaxed">
+            Over twenty-five years of making first impressions count. The Upminster shop was Arnie&apos;s
+            first, and its success allowed the Brentwood salon to follow. Two chairs, two doors, one
+            standard.
+          </p>
+          <div className="mt-6 italia-stripe h-2 w-24 rounded-sm" aria-hidden />
+        </div>
+        <div className="md:col-span-7 grid sm:grid-cols-2 gap-3">
+          <Card icon="craft" title="Italian craft, professionally trained">
+            Our staff are mainly Italian with over twenty years of experience in the salon. Trained
+            properly, hosting properly. The reviews on Google back this up.
+          </Card>
+          <Card icon="razor" title="Traditional razor shaves">
+            Hot and cold towels, real cut-throat blades, no shortcuts. The shave your grandfather
+            used to get, done by people who actually trained for it.
+          </Card>
+          <Card icon="travel" title="Worth the travel">
+            We are well known locally and we are delighted to have many customers who travel from
+            further afield, drawn by the consistency of the cut and the quality of the shave.
+          </Card>
+          <Card icon="shelf" title="Products on the shelf">
+            American Crew, Kevin Murphy, DS Laboratories, DFI. The same products we use at the
+            chair, available to take home.
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Card({
+  title,
+  children,
+  icon,
+}: {
+  title: string;
+  children: React.ReactNode;
+  icon: 'craft' | 'razor' | 'travel' | 'shelf';
+}) {
+  return (
+    <div className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card">
+      <span className="grid h-10 w-10 place-items-center rounded-full bg-italia-green/10 text-italia-green">
+        <CardIcon name={icon} />
+      </span>
+      <h3 className="mt-4 font-display text-xl text-ink-950 leading-tight">{title}</h3>
+      <p className="mt-2 text-sm text-ink-700 leading-relaxed">{children}</p>
+    </div>
+  );
+}
+
+function CardIcon({ name }: { name: 'craft' | 'razor' | 'travel' | 'shelf' }) {
+  const props = {
+    width: 18,
+    height: 18,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+  };
+  if (name === 'craft') {
+    return (
+      <svg {...props}>
+        <path d="M14 4l6 6-9 9-6-6 9-9z" />
+        <path d="M5 19l-2 2" />
+      </svg>
+    );
+  }
+  if (name === 'razor') {
+    return (
+      <svg {...props}>
+        <path d="M3 5h13l5 5-9 9H4l-1-1V5z" />
+        <path d="M16 5l-7 7" />
+      </svg>
+    );
+  }
+  if (name === 'travel') {
+    return (
+      <svg {...props}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...props}>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M4 9h16M9 4v16" />
+    </svg>
+  );
+}
+
+function Contact() {
+  return (
+    <section id="contact" className="bg-bone-100 border-y border-ink-900/10 scroll-mt-24">
+      <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-10">
+        <div className="md:col-span-5">
+          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">Contact</p>
+          <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950 leading-tight">
+            Drop us a line, or pick up the phone.
+          </h2>
+          <p className="mt-4 text-ink-700 leading-relaxed">
+            For bookings, the fastest path is the chair picker above. For everything else, we
+            answer email within a working day, and either shop will pick up during opening hours.
+          </p>
+
+          <div className="mt-6 space-y-3">
+            <ContactRow label="Email" value="info@demiliabarbers.co.uk" href="mailto:info@demiliabarbers.co.uk" />
+            <ContactRow label="Brentwood" value="01277 200008" href="tel:01277200008" />
+            <ContactRow label="Upminster" value="01708 440144" href="tel:01708440144" />
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3 text-sm">
+            <a
+              href="https://www.instagram.com/demiliabarbers/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="rounded-full border border-ink-900/15 px-4 py-2 hover:bg-bone-50"
+            >
+              @demiliabarbers
+            </a>
+            <a
+              href="https://www.facebook.com/demiliabarbers"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="rounded-full border border-ink-900/15 px-4 py-2 hover:bg-bone-50"
+            >
+              Facebook
+            </a>
+          </div>
+        </div>
+
+        <form
+          className="md:col-span-7 rounded-2xl border border-ink-900/10 bg-bone-50 p-6 shadow-card space-y-4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            alert('Demo only - in production this would email the salon.');
+          }}
+        >
+          <div className="grid sm:grid-cols-2 gap-4">
+            <Field label="Your name" name="name" placeholder="James Wilson" />
+            <Field label="Email" name="email" type="email" placeholder="you@example.com" />
+          </div>
+          <Field label="Phone (optional)" name="phone" type="tel" placeholder="07xxx xxx xxx" />
+          <SelectField label="Which salon" name="salon" options={['Either - whichever fits', 'Brentwood', 'Upminster']} />
+          <TextAreaField
+            label="What can we help with?"
+            name="message"
+            placeholder="Quick question, group booking, products in stock, anything..."
+          />
+          <div className="flex items-center justify-between gap-4 pt-2">
+            <p className="text-xs text-ink-500">We never share your details. Demo only.</p>
+            <button
+              type="submit"
+              className="rounded-full bg-ink-950 px-5 py-2.5 text-sm font-semibold text-bone-50 hover:bg-ink-800 transition"
+            >
+              Send message
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function ContactRow({ label, value, href }: { label: string; value: string; href: string }) {
+  return (
+    <a
+      href={href}
+      className="flex items-center justify-between rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4 hover:border-italia-green hover:bg-italia-green/5 transition"
+    >
+      <span className="text-[10px] uppercase tracking-[0.2em] text-ink-500">{label}</span>
+      <span className="font-display text-lg text-ink-950">{value}</span>
+    </a>
+  );
+}
+
+function Field({
+  label,
+  name,
+  type = 'text',
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        className="mt-1.5 w-full rounded-lg border border-ink-900/10 bg-bone-50 px-3 py-2.5 text-sm text-ink-950 placeholder:text-ink-400 focus:outline-none focus:border-italia-green"
+      />
+    </label>
+  );
+}
+
+function TextAreaField({
+  label,
+  name,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  placeholder?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <textarea
+        name={name}
+        placeholder={placeholder}
+        rows={4}
+        className="mt-1.5 w-full rounded-lg border border-ink-900/10 bg-bone-50 px-3 py-2.5 text-sm text-ink-950 placeholder:text-ink-400 focus:outline-none focus:border-italia-green"
+      />
+    </label>
+  );
+}
+
+function SelectField({
+  label,
+  name,
+  options,
+}: {
+  label: string;
+  name: string;
+  options: string[];
+}) {
+  return (
+    <label className="block">
+      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <select
+        name={name}
+        className="mt-1.5 w-full rounded-lg border border-ink-900/10 bg-bone-50 px-3 py-2.5 text-sm text-ink-950 focus:outline-none focus:border-italia-green"
+      >
+        {options.map((o) => (
+          <option key={o}>{o}</option>
+        ))}
+      </select>
+    </label>
   );
 }
