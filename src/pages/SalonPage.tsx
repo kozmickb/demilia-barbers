@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CTA, Reviews, SalonCard, Services } from '../sections';
+import { CTA, Reviews, SalonCard, Services, StylishPhoto } from '../sections';
 import { LOCATIONS, type Location } from '../data';
 
 export function BrentwoodSalonPage() {
@@ -49,9 +49,11 @@ function SalonPage({ loc, otherSlug, otherShort }: { loc: Location; otherSlug: s
           </div>
           <div className="md:col-span-5">
             <div className="rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
-              <div className="aspect-[4/3] overflow-hidden bg-ink-700">
-                <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover object-top" />
-              </div>
+              <StylishPhoto
+                src={loc.image}
+                alt={`${loc.name} team`}
+                className="aspect-[4/3]"
+              />
             </div>
           </div>
         </div>

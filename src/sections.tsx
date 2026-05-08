@@ -808,6 +808,50 @@ export function Reviews({ filter }: { filter?: 'Brentwood' | 'Upminster' }) {
   );
 }
 
+/* ------------------------------------------------------------ Stylish photo treatment */
+
+/**
+ * Editorial wrapper for the real Wix-CDN salon photos. Keeps the source
+ * photo recognizable while lifting it with a subtle saturation/contrast
+ * grade, a soft bottom vignette, a faint italia-red wash, a small
+ * italia-stripe corner accent, and an inner cream hairline that reads
+ * like a polaroid edge.
+ */
+export function StylishPhoto({
+  src,
+  alt,
+  className = 'aspect-[16/9]',
+  position = 'object-top',
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  position?: 'object-top' | 'object-center';
+}) {
+  return (
+    <div className={`group relative overflow-hidden bg-ink-700 ${className}`}>
+      <img
+        src={src}
+        alt={alt}
+        className={`absolute inset-0 h-full w-full object-cover ${position} transition duration-[1200ms] ease-out group-hover:scale-[1.04]`}
+        style={{ filter: 'saturate(1.12) contrast(1.05) brightness(1.02)' }}
+      />
+      {/* Soft bottom vignette for weight */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/55 via-ink-950/10 to-transparent" aria-hidden />
+      {/* Faint italia-red warm wash, mix-blend for editorial color grade */}
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-30"
+        style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0) 55%, rgb(var(--accent-2) / 0.18) 100%)' }}
+        aria-hidden
+      />
+      {/* Italia-stripe corner accent */}
+      <div className="pointer-events-none absolute bottom-3 left-3 italia-stripe h-1 w-12 rounded-sm shadow-[0_0_0_1px_rgba(0,0,0,0.15)]" aria-hidden />
+      {/* Hairline polaroid frame */}
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-bone-50/15" aria-hidden />
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------ Locations (both) and SalonCard (one) */
 
 export function Locations() {
@@ -832,9 +876,11 @@ export function SalonCard({ loc, compact = false }: { loc: Location; compact?: b
   const isOpenToday = new Date().getDay() !== 0; // Sunday = 0, both salons closed
   return (
     <article id={loc.id} className="h-full scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
-      <div className={compact ? 'aspect-[16/9] bg-ink-700 overflow-hidden' : 'aspect-[16/8] bg-ink-700 overflow-hidden'}>
-        <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover object-top" />
-      </div>
+      <StylishPhoto
+        src={loc.image}
+        alt={`${loc.name} team`}
+        className={compact ? 'aspect-[16/9]' : 'aspect-[16/8]'}
+      />
       <div className="p-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl text-ink-950">{loc.name}</h3>
