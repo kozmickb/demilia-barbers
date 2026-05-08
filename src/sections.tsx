@@ -833,7 +833,7 @@ export function SalonCard({ loc, compact = false }: { loc: Location; compact?: b
   return (
     <article id={loc.id} className="h-full scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
       <div className={compact ? 'aspect-[16/9] bg-ink-700 overflow-hidden' : 'aspect-[16/8] bg-ink-700 overflow-hidden'}>
-        <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover" />
+        <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover object-top" />
       </div>
       <div className="p-6">
         <div className="flex items-center justify-between">
