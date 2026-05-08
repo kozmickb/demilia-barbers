@@ -1,4 +1,4 @@
-import { About, BookingProposal, CTA, Hero, Locations, QloProposal, Reviews, Services } from '../sections';
+import { About, BookingProposal, CTA, Hero, Locations, PullQuote, QloProposal, Reviews, Services } from '../sections';
 
 export default function Home() {
   return (
@@ -6,6 +6,7 @@ export default function Home() {
       <Hero />
       <About compact />
       <Services />
+      <PullQuote />
       <Reviews />
       <Locations />
       <QloProposal />

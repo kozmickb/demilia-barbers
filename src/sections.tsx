@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Reveal } from './components/Reveal';
 import logoUrl from './assets/demilia-logo.png';
 import heroImg from './assets/demilia-shop1.png';
 import qloLogoUrl from './assets/qlo-logo.png';
@@ -29,7 +30,7 @@ export function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-italia-green" />
             Website refresh proposal &middot; Brentwood &amp; Upminster
           </span>
-          <h1 className="mt-5 font-display font-bold text-4xl sm:text-5xl md:text-7xl leading-[1.02] md:leading-[0.98] tracking-tight text-ink-950">
+          <h1 className="mt-5 font-display font-semibold text-4xl sm:text-5xl md:text-7xl leading-[1.02] md:leading-[0.98] tracking-tight text-ink-950">
             A site that does justice to <em className="text-italia-red not-italic">twenty plus years</em> of craft.
           </h1>
           <p className="mt-5 text-base sm:text-lg text-ink-700 max-w-xl leading-relaxed">
@@ -81,7 +82,7 @@ export function Hero() {
 function Stat({ value, label }: { value: React.ReactNode; label: string }) {
   return (
     <div>
-      <dt className="font-display text-xl sm:text-2xl text-ink-950">{value}</dt>
+      <dt className="font-display text-xl sm:text-2xl text-ink-950 tabular-nums">{value}</dt>
       <dd className="text-[10px] sm:text-xs uppercase tracking-wider text-ink-500 mt-1">{label}</dd>
     </div>
   );
@@ -517,17 +518,16 @@ export function Services() {
         </Link>
       </div>
       <div className="grid sm:grid-cols-2 gap-3">
-        {SERVICES.map((s) => (
-          <div
-            key={s.name}
-            className="flex items-baseline justify-between gap-4 rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4"
-          >
-            <div>
-              <div className="font-display text-lg sm:text-xl text-ink-950">{s.name}</div>
-              <div className="text-xs text-ink-500 mt-1">{s.time}</div>
+        {SERVICES.map((s, i) => (
+          <Reveal key={s.name} delay={i * 40}>
+            <div className="flex items-baseline justify-between gap-4 rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4 transition hover:-translate-y-0.5 hover:border-ink-900/20">
+              <div>
+                <div className="font-display text-lg sm:text-xl text-ink-950">{s.name}</div>
+                <div className="text-xs text-ink-500 mt-1">{s.time}</div>
+              </div>
+              <div className="font-display text-xl sm:text-2xl text-ink-950 tabular-nums">{s.price}</div>
             </div>
-            <div className="font-display text-xl sm:text-2xl text-ink-950">{s.price}</div>
-          </div>
+          </Reveal>
         ))}
       </div>
       <p className="mt-6 text-xs text-ink-500">
@@ -563,22 +563,30 @@ export function About({ compact = false }: { compact?: boolean }) {
           <div className="mt-6 italia-stripe h-2 w-24 rounded-sm" aria-hidden />
         </div>
         <div className="md:col-span-7 grid sm:grid-cols-2 gap-3">
-          <Card icon="craft" title="Italian craft, professionally trained">
-            Our staff are mainly Italian with over twenty years of experience in the salon. Trained
-            properly, hosting properly. The reviews on Google back this up.
-          </Card>
-          <Card icon="razor" title="Traditional razor shaves">
-            Hot and cold towels, real cut-throat blades, no shortcuts. The shave your grandfather
-            used to get, done by people who actually trained for it.
-          </Card>
-          <Card icon="travel" title="Worth the travel">
-            We are well known locally and we are delighted to have many customers who travel from
-            further afield, drawn by the consistency of the cut and the quality of the shave.
-          </Card>
-          <Card icon="shelf" title="Products on the shelf">
-            American Crew, Kevin Murphy, DS Laboratories, DFI. The same products we use at the
-            chair, available to take home.
-          </Card>
+          <Reveal delay={0}>
+            <Card icon="craft" title="Italian craft, professionally trained">
+              Our staff are mainly Italian with over twenty years of experience in the salon. Trained
+              properly, hosting properly. The reviews on Google back this up.
+            </Card>
+          </Reveal>
+          <Reveal delay={60}>
+            <Card icon="razor" title="Traditional razor shaves">
+              Hot and cold towels, real cut-throat blades, no shortcuts. The shave your grandfather
+              used to get, done by people who actually trained for it.
+            </Card>
+          </Reveal>
+          <Reveal delay={120}>
+            <Card icon="travel" title="Worth the travel">
+              We are well known locally and we are delighted to have many customers who travel from
+              further afield, drawn by the consistency of the cut and the quality of the shave.
+            </Card>
+          </Reveal>
+          <Reveal delay={180}>
+            <Card icon="shelf" title="Products on the shelf">
+              American Crew, Kevin Murphy, DS Laboratories, DFI. The same products we use at the
+              chair, available to take home.
+            </Card>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -595,7 +603,7 @@ function Card({
   icon: 'craft' | 'razor' | 'travel' | 'shelf';
 }) {
   return (
-    <div className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card">
+    <div className="h-full rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
       <span className="grid h-10 w-10 place-items-center rounded-full bg-italia-green/10 text-italia-green">
         <CardIcon name={icon} />
       </span>
@@ -603,6 +611,16 @@ function Card({
       <p className="mt-2 text-sm text-ink-700 leading-relaxed">{children}</p>
     </div>
   );
+}
+
+function initialsOf(name: string): string {
+  return name
+    .replace(/[.,]/g, '')
+    .split(' ')
+    .filter(Boolean)
+    .map((p) => p[0]?.toUpperCase() ?? '')
+    .slice(0, 2)
+    .join('');
 }
 
 function CardIcon({ name }: { name: 'craft' | 'razor' | 'travel' | 'shelf' }) {
@@ -702,6 +720,32 @@ function TeamCard({ name, role, years, shop }: { name: string; role: string; yea
   );
 }
 
+/* ------------------------------------------------------------ Pull quote (off-grid moment) */
+
+export function PullQuote({
+  quote = 'Best fade in Essex, no question.',
+  attribution = 'James W., Brentwood regular',
+}: {
+  quote?: string;
+  attribution?: string;
+}) {
+  return (
+    <section className="bg-bone-50">
+      <div className="mx-auto max-w-5xl px-5 text-center">
+        <Reveal>
+          <span aria-hidden className="block text-italia-red/40 font-display text-7xl sm:text-8xl leading-none mb-2">&ldquo;</span>
+          <p className="font-display italic font-semibold text-italia-red text-3xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight">
+            {quote}
+          </p>
+          <p className="mt-6 text-xs uppercase tracking-[0.22em] text-ink-500 font-semibold">
+            {attribution}
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* ------------------------------------------------------------ Reviews */
 
 export function Reviews({ filter }: { filter?: 'Brentwood' | 'Upminster' }) {
@@ -721,14 +765,24 @@ export function Reviews({ filter }: { filter?: 'Brentwood' | 'Upminster' }) {
         </div>
       </div>
       <div className="grid md:grid-cols-3 gap-4">
-        {items.map((r) => (
-          <figure key={r.name} className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card">
-            <div className="text-italia-red text-lg tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            <blockquote className="mt-3 text-ink-900 leading-relaxed">&ldquo;{r.body}&rdquo;</blockquote>
-            <figcaption className="mt-4 text-sm text-ink-500">
-              {r.name}, {r.where}
-            </figcaption>
-          </figure>
+        {items.map((r, i) => (
+          <Reveal key={r.name} delay={i * 60}>
+            <figure className="h-full rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden
+                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-italia-green/10 text-italia-green font-display text-base"
+                >
+                  {initialsOf(r.name)}
+                </span>
+                <div className="text-italia-red text-lg tracking-wide">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              </div>
+              <blockquote className="mt-3 text-ink-900 leading-relaxed">&ldquo;{r.body}&rdquo;</blockquote>
+              <figcaption className="mt-4 text-sm text-ink-500">
+                {r.name}, {r.where}
+              </figcaption>
+            </figure>
+          </Reveal>
         ))}
       </div>
     </section>
@@ -744,8 +798,10 @@ export function Locations() {
         <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">Both salons</p>
         <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Find us in Brentwood and Upminster.</h2>
         <div className="mt-10 grid md:grid-cols-2 gap-5">
-          {LOCATIONS.map((loc) => (
-            <SalonCard key={loc.name} loc={loc} compact />
+          {LOCATIONS.map((loc, i) => (
+            <Reveal key={loc.name} delay={i * 80}>
+              <SalonCard loc={loc} compact />
+            </Reveal>
           ))}
         </div>
       </div>
@@ -755,7 +811,7 @@ export function Locations() {
 
 export function SalonCard({ loc, compact = false }: { loc: Location; compact?: boolean }) {
   return (
-    <article id={loc.id} className="scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card">
+    <article id={loc.id} className="h-full scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
       <div className={compact ? 'aspect-[16/9] bg-ink-700 overflow-hidden' : 'aspect-[16/8] bg-ink-700 overflow-hidden'}>
         <img src={loc.image} alt={`${loc.name} interior`} className="h-full w-full object-cover" />
       </div>
@@ -1011,7 +1067,7 @@ export function CTA({ href = '/contact-us' }: { href?: string }) {
                 This exact site, built for you
               </div>
               <div className="mt-2 flex items-baseline gap-3">
-                <span className="font-display text-5xl sm:text-6xl text-bone-50">£500</span>
+                <span className="font-display text-5xl sm:text-6xl text-bone-50 tabular-nums">£500</span>
                 <span className="text-sm text-bone-200/80 font-semibold">+ VAT</span>
               </div>
               <p className="mt-3 text-sm text-bone-100/85 leading-relaxed">

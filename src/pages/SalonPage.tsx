@@ -18,7 +18,7 @@ function SalonPage({ loc, otherSlug, otherShort }: { loc: Location; otherSlug: s
         <div className="relative mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10 items-center">
           <div className="md:col-span-7">
             <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">{loc.short} Salon</p>
-            <h1 className="mt-3 font-display font-bold text-4xl sm:text-5xl md:text-6xl text-ink-950 leading-tight">
+            <h1 className="mt-3 font-display font-semibold text-4xl sm:text-5xl md:text-6xl text-ink-950 leading-tight">
               {loc.headline}
             </h1>
             <p className="mt-4 text-base sm:text-lg text-ink-700 max-w-2xl leading-relaxed">
