@@ -93,11 +93,18 @@ function HeroCard() {
     <div className="relative">
       <div className="absolute -inset-3 rounded-3xl bg-italia-green/5 blur-xl" />
       <div className="relative rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
+        <div
+          aria-hidden
+          className="absolute left-0 top-0 bottom-0 w-1 z-10"
+          style={{
+            background: 'linear-gradient(180deg, rgb(var(--accent)) 0%, rgb(var(--accent)) 33%, rgb(var(--bone-50)) 33%, rgb(var(--bone-50)) 66%, rgb(var(--accent-2)) 66%, rgb(var(--accent-2)) 100%)',
+          }}
+        />
         <div className="aspect-[4/5] bg-ink-950 relative">
           <img src={heroImg} alt="De'Milia barber at work" className="absolute inset-0 h-full w-full object-cover opacity-95" />
           <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-ink-950/85 via-ink-950/40 to-transparent">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-bone-200">De&apos;Milia &middot; Italian Barbershop</span>
+              <span className="text-[10px] uppercase tracking-[0.22em] text-bone-200">De&apos;Milia &middot; Italian Barbershop</span>
               <span className="rounded-full bg-italia-green text-bone-50 px-2.5 py-0.5 text-xs font-medium">
                 Established 2004
               </span>
@@ -142,8 +149,8 @@ export function BookingProposal() {
       <div className="mx-auto max-w-6xl px-5">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">
-              Or, if you ever want bookings
+            <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">
+              Online booking &middot; optional
             </p>
             <h2 className="mt-2 font-display text-2xl sm:text-3xl md:text-4xl text-ink-950 leading-tight">
               And here&apos;s the same thing as a booking page, if you change your mind one day.
@@ -186,7 +193,7 @@ export function BookingProposal() {
           aria-hidden={!open}
         >
           <div className="lg:col-span-1 rounded-2xl border border-ink-900/10 bg-bone-50 p-5">
-            <h3 className="text-xs font-semibold text-ink-500 uppercase tracking-[0.18em]">1. Salon</h3>
+            <h3 className="text-xs font-semibold text-ink-500 uppercase tracking-[0.22em]">1. Salon</h3>
             <div className="mt-3 space-y-2">
               {LOCATIONS.map((loc, i) => (
                 <button
@@ -205,7 +212,7 @@ export function BookingProposal() {
               ))}
             </div>
 
-            <h3 className="mt-6 text-xs font-semibold text-ink-500 uppercase tracking-[0.18em]">2. Service</h3>
+            <h3 className="mt-6 text-xs font-semibold text-ink-500 uppercase tracking-[0.22em]">2. Service</h3>
             <div className="mt-3 space-y-2">
               {SERVICES.slice(0, 4).map((s, i) => (
                 <button
@@ -227,7 +234,7 @@ export function BookingProposal() {
 
           <div className="lg:col-span-2 rounded-2xl border border-ink-900/10 bg-bone-50 p-5">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold text-ink-500 uppercase tracking-[0.18em]">3. When suits you</h3>
+              <h3 className="text-xs font-semibold text-ink-500 uppercase tracking-[0.22em]">3. When suits you</h3>
               <span className="text-xs text-ink-500">{LOCATIONS[activeLocation].short} salon</span>
             </div>
 
@@ -271,7 +278,7 @@ export function BookingProposal() {
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-ink-950 text-bone-50 px-5 py-4">
               <div className="text-sm">
-                <div className="text-bone-200/70 text-[10px] uppercase tracking-[0.2em]">Your booking</div>
+                <div className="text-bone-200/70 text-[10px] uppercase tracking-[0.22em]">Your booking</div>
                 <div className="mt-1">
                   <span className="font-display text-lg">{SERVICES[activeService].name}</span>
                   <span className="text-bone-200/80"> at </span>
@@ -320,7 +327,7 @@ export function QloProposal() {
                 alt="Qlo"
                 className="h-9 sm:h-10 w-auto rounded-xl"
               />
-              <span className="text-xs uppercase tracking-[0.2em] text-italia-red font-semibold">
+              <span className="text-xs uppercase tracking-[0.22em] text-italia-red font-semibold">
                 Better fit: walk-ins, not bookings
               </span>
             </div>
@@ -342,7 +349,7 @@ export function QloProposal() {
               >
                 <AppleIcon className="h-6 w-6" />
                 <span className="leading-tight">
-                  <span className="block text-[10px] uppercase tracking-[0.18em] text-bone-200/80">Download on the</span>
+                  <span className="block text-[10px] uppercase tracking-[0.22em] text-bone-200/80">Download on the</span>
                   <span className="block font-display text-base">App Store</span>
                 </span>
               </a>
@@ -382,17 +389,23 @@ export function QloProposal() {
           aria-hidden={!open}
         >
           <div className="lg:col-span-1 space-y-3">
-            {QLO_FEATURES.map((f) => (
-              <div key={f.title} className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card">
-                <h3 className="font-display text-lg sm:text-xl text-ink-950 leading-tight">{f.title}</h3>
-                <p className="mt-2 text-sm text-ink-700 leading-relaxed">{f.body}</p>
-              </div>
+            {QLO_FEATURES.map((f, i) => (
+              <Reveal key={f.title} delay={open ? i * 60 : 0}>
+                <div className="rounded-2xl border border-ink-900/10 bg-bone-50 p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
+                  <h3 className="font-display text-lg sm:text-xl text-ink-950 leading-tight">{f.title}</h3>
+                  <p className="mt-2 text-sm text-ink-700 leading-relaxed">{f.body}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
 
           <div className="lg:col-span-2 grid gap-4">
-            <QloCustomerCard />
-            <QloOwnerCard />
+            <Reveal delay={open ? 120 : 0}>
+              <QloCustomerCard />
+            </Reveal>
+            <Reveal delay={open ? 200 : 0}>
+              <QloOwnerCard />
+            </Reveal>
           </div>
         </div>
 
@@ -479,7 +492,7 @@ function QloOwnerCard() {
       </div>
       <div className="mx-5 mb-5 rounded-xl bg-bone-100 border border-ink-900/5 p-4">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-ink-500 uppercase tracking-[0.18em]">Suggested action</span>
+          <span className="text-ink-500 uppercase tracking-[0.22em]">Suggested action</span>
           <span className="font-semibold text-italia-red">Send a nudge</span>
         </div>
         <p className="mt-2 text-sm text-ink-900">
@@ -498,7 +511,7 @@ function Stat3({ value, label }: { value: string; label: string }) {
   return (
     <div className="rounded-xl border border-ink-900/10 bg-bone-50 p-3 text-center">
       <div className="font-display text-xl sm:text-2xl text-ink-950">{value}</div>
-      <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</div>
+      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</div>
     </div>
   );
 }
@@ -510,7 +523,7 @@ export function Services() {
     <section id="services" className="mx-auto max-w-6xl px-5 scroll-mt-24">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">The menu</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">The menu</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Honest prices. No surprises at the till.</h2>
         </div>
         <Link to="/contact-us" className="hidden md:inline text-sm font-semibold text-ink-950 hover:text-italia-red">
@@ -520,12 +533,18 @@ export function Services() {
       <div className="grid sm:grid-cols-2 gap-3">
         {SERVICES.map((s, i) => (
           <Reveal key={s.name} delay={i * 40}>
-            <div className="flex items-baseline justify-between gap-4 rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4 transition hover:-translate-y-0.5 hover:border-ink-900/20">
-              <div>
+            <div className="flex items-baseline gap-4 rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4 transition hover:-translate-y-0.5 hover:border-ink-900/20">
+              <span
+                aria-hidden
+                className="font-display text-base text-italia-red/60 tabular-nums shrink-0 w-7"
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div className="flex-1 min-w-0">
                 <div className="font-display text-lg sm:text-xl text-ink-950">{s.name}</div>
                 <div className="text-xs text-ink-500 mt-1">{s.time}</div>
               </div>
-              <div className="font-display text-xl sm:text-2xl text-ink-950 tabular-nums">{s.price}</div>
+              <div className="font-display text-xl sm:text-2xl text-ink-950 tabular-nums shrink-0">{s.price}</div>
             </div>
           </Reveal>
         ))}
@@ -544,7 +563,7 @@ export function About({ compact = false }: { compact?: boolean }) {
     <section id="about" className="bg-bone-50 scroll-mt-24">
       <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10 items-start">
         <div className="md:col-span-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">About De&apos;Milia</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">About De&apos;Milia</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950 leading-tight">
             Serving Essex and Londoners since 1999.
           </h2>
@@ -673,7 +692,7 @@ export function Team() {
     <section id="team" className="border-y border-ink-900/10 bg-ink-950 text-bone-50 scroll-mt-24">
       <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10 items-center">
         <div className="md:col-span-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-italia-red font-semibold">The chair</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-italia-red font-semibold">The chair</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-bone-50 leading-tight">
             Italian craft since 2004.
           </h2>
@@ -684,7 +703,7 @@ export function Team() {
           </p>
           <div className="mt-7 flex items-center gap-4 text-xs text-bone-200/70">
             <span className="italia-stripe h-3 w-12 rounded-sm" aria-hidden />
-            <span className="uppercase tracking-[0.2em]">Brentwood &middot; Upminster &middot; Essex</span>
+            <span className="uppercase tracking-[0.22em]">Brentwood &middot; Upminster &middot; Essex</span>
           </div>
         </div>
         <div className="md:col-span-6 space-y-3">
@@ -754,7 +773,7 @@ export function Reviews({ filter }: { filter?: 'Brentwood' | 'Upminster' }) {
     <section id="reviews" className="mx-auto max-w-6xl px-5 scroll-mt-24">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-8">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">What clients say</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">What clients say</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">
             {filter ? `Five-star regulars in ${filter}.` : 'Five-star regulars across both salons.'}
           </h2>
@@ -795,7 +814,7 @@ export function Locations() {
   return (
     <section id="locations" className="border-y border-ink-900/10 bg-bone-100 scroll-mt-24">
       <div className="mx-auto max-w-6xl px-5">
-        <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">Both salons</p>
+        <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">Both salons</p>
         <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Find us in Brentwood and Upminster.</h2>
         <div className="mt-10 grid md:grid-cols-2 gap-5">
           {LOCATIONS.map((loc, i) => (
@@ -810,6 +829,7 @@ export function Locations() {
 }
 
 export function SalonCard({ loc, compact = false }: { loc: Location; compact?: boolean }) {
+  const isOpenToday = new Date().getDay() !== 0; // Sunday = 0, both salons closed
   return (
     <article id={loc.id} className="h-full scroll-mt-24 overflow-hidden rounded-2xl border border-ink-900/10 bg-bone-50 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft">
       <div className={compact ? 'aspect-[16/9] bg-ink-700 overflow-hidden' : 'aspect-[16/8] bg-ink-700 overflow-hidden'}>
@@ -818,9 +838,15 @@ export function SalonCard({ loc, compact = false }: { loc: Location; compact?: b
       <div className="p-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-2xl text-ink-950">{loc.name}</h3>
-          <span className="rounded-full bg-italia-green/10 px-3 py-1 text-xs font-medium text-italia-green">
-            Open today
-          </span>
+          {isOpenToday ? (
+            <span className="rounded-full bg-italia-green/10 px-3 py-1 text-xs font-medium text-italia-green">
+              Open today
+            </span>
+          ) : (
+            <span className="rounded-full bg-ink-900/5 px-3 py-1 text-xs font-medium text-ink-500">
+              Closed Sunday
+            </span>
+          )}
         </div>
         <p className="mt-2 text-sm text-ink-700 italic">{loc.headline}</p>
 
@@ -837,7 +863,7 @@ export function SalonCard({ loc, compact = false }: { loc: Location; compact?: b
         </div>
 
         <div className="mt-5 rounded-xl bg-bone-100 border border-ink-900/5 p-4">
-          <div className="text-[10px] uppercase tracking-[0.2em] text-ink-500 mb-2">Opening hours</div>
+          <div className="text-[10px] uppercase tracking-[0.22em] text-ink-500 mb-2">Opening hours</div>
           <dl className="grid grid-cols-2 gap-y-1 text-xs text-ink-700">
             {loc.hours.map((h) => (
               <div key={h.d} className="contents">
@@ -879,7 +905,7 @@ export function SalonCard({ loc, compact = false }: { loc: Location; compact?: b
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg border border-ink-900/5 bg-bone-100 p-3">
-      <div className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</div>
+      <div className="text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</div>
       <div className="mt-1 text-ink-900 leading-snug">{value}</div>
     </div>
   );
@@ -909,7 +935,7 @@ export function Contact() {
     <section id="contact" className="bg-bone-100 border-y border-ink-900/10 scroll-mt-24">
       <div className="mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-8 md:gap-10">
         <div className="md:col-span-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">Contact</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-italia-green font-semibold">Contact</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950 leading-tight">
             Drop us a line, or pick up the phone.
           </h2>
@@ -982,7 +1008,7 @@ function ContactRow({ label, value, href }: { label: string; value: string; href
       href={href}
       className="flex items-center justify-between rounded-xl border border-ink-900/10 bg-bone-50 px-5 py-4 hover:border-italia-green hover:bg-italia-green/5 transition"
     >
-      <span className="text-[10px] uppercase tracking-[0.2em] text-ink-500">{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</span>
       <span className="font-display text-base sm:text-lg text-ink-950">{value}</span>
     </a>
   );
@@ -991,7 +1017,7 @@ function ContactRow({ label, value, href }: { label: string; value: string; href
 function Field({ label, name, type = 'text', placeholder }: { label: string; name: string; type?: string; placeholder?: string }) {
   return (
     <label className="block">
-      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</span>
       <input
         name={name}
         type={type}
@@ -1005,7 +1031,7 @@ function Field({ label, name, type = 'text', placeholder }: { label: string; nam
 function TextAreaField({ label, name, placeholder }: { label: string; name: string; placeholder?: string }) {
   return (
     <label className="block">
-      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</span>
       <textarea
         name={name}
         placeholder={placeholder}
@@ -1019,7 +1045,7 @@ function TextAreaField({ label, name, placeholder }: { label: string; name: stri
 function SelectField({ label, name, options }: { label: string; name: string; options: string[] }) {
   return (
     <label className="block">
-      <span className="text-[10px] uppercase tracking-[0.18em] text-ink-500">{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.22em] text-ink-500">{label}</span>
       <select
         name={name}
         className="mt-1.5 w-full rounded-lg border border-ink-900/10 bg-bone-50 px-3 py-2.5 text-sm text-ink-950 focus:outline-none focus:border-italia-green"
@@ -1131,7 +1157,7 @@ export function Footer() {
           </div>
         </div>
         <div>
-          <div className="text-ink-500 text-[10px] uppercase tracking-[0.2em]">Visit</div>
+          <div className="text-ink-500 text-[10px] uppercase tracking-[0.22em]">Visit</div>
           <ul className="mt-3 space-y-3 text-ink-900">
             {LOCATIONS.map((l) => (
               <li key={l.name}>
@@ -1147,7 +1173,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <div className="text-ink-500 text-[10px] uppercase tracking-[0.2em]">Concept by</div>
+          <div className="text-ink-500 text-[10px] uppercase tracking-[0.22em]">Concept by</div>
           <p className="mt-3 text-ink-900">
             One-day prototype by{' '}
             <a
