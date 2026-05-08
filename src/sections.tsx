@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoUrl from './assets/demilia-logo.png';
 import heroImg from './assets/demilia-shop1.png';
+import qloLogoUrl from './assets/qlo-logo.png';
+import qloIconDark from './assets/qlo-icon-dark.png';
+
+const QLO_APP_STORE_URL = 'https://apps.apple.com/app/id6757822508';
 import {
   LOCATIONS,
   REVIEWS,
@@ -302,17 +306,40 @@ export function QloProposal() {
       <div className="mx-auto max-w-6xl px-5">
         <div className="flex flex-wrap items-start justify-between gap-5">
           <div className="max-w-2xl">
-            <p className="text-xs uppercase tracking-[0.2em] text-italia-red font-semibold">
-              Better fit: walk-ins, not bookings
-            </p>
-            <h2 className="mt-2 font-display text-2xl sm:text-3xl md:text-4xl text-ink-950 leading-tight">
-              You&apos;re a walk-in shop. Meet QLO.
+            <div className="flex items-center gap-3">
+              <img
+                src={qloLogoUrl}
+                alt="Qlo"
+                className="h-9 sm:h-10 w-auto rounded-xl"
+              />
+              <span className="text-xs uppercase tracking-[0.2em] text-italia-red font-semibold">
+                Better fit: walk-ins, not bookings
+              </span>
+            </div>
+            <h2 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl text-ink-950 leading-tight">
+              You&apos;re a walk-in shop. Meet Qlo.
             </h2>
             <p className="mt-3 text-sm sm:text-base text-ink-700 leading-relaxed">
-              Bookings aren&apos;t how De&apos;Milia works. Walk-ins are. QLO is our app for shops
-              exactly like yours: live wait times, smart nudges when it&apos;s quiet, no diary to babysit.
-              Already running with another local barber.
+              Bookings aren&apos;t how De&apos;Milia works. Walk-ins are. Qlo is a real app, live on the
+              App Store, built for shops exactly like yours: live wait times, smart nudges when
+              it&apos;s quiet, no diary to babysit.
             </p>
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <a
+                href={QLO_APP_STORE_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Download Qlo on the App Store"
+                className="inline-flex items-center gap-3 rounded-xl bg-ink-950 text-bone-50 pl-3 pr-4 py-2 hover:bg-ink-800 transition shadow-card"
+              >
+                <AppleIcon className="h-6 w-6" />
+                <span className="leading-tight">
+                  <span className="block text-[10px] uppercase tracking-[0.18em] text-bone-200/80">Download on the</span>
+                  <span className="block font-display text-base">App Store</span>
+                </span>
+              </a>
+              <span className="text-xs text-ink-500">Live now &middot; iPhone &middot; free</span>
+            </div>
           </div>
           <button
             type="button"
@@ -321,7 +348,7 @@ export function QloProposal() {
             aria-controls="qlo-detail"
             className="rounded-full bg-italia-red px-5 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 transition flex items-center gap-2 shrink-0"
           >
-            {open ? 'Hide QLO' : 'See how QLO fits'}
+            {open ? 'Hide Qlo' : 'See how Qlo fits'}
             <svg
               viewBox="0 0 24 24"
               width={14}
@@ -369,11 +396,22 @@ export function QloProposal() {
   );
 }
 
+function AppleIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M16.365 1.43c0 1.14-.42 2.22-1.13 3.04-.78.91-2.04 1.61-3.07 1.53-.13-1.12.41-2.27 1.1-3.05.78-.88 2.1-1.55 3.1-1.52zM21 17.34c-.59 1.32-.87 1.92-1.62 3.09-1.05 1.62-2.53 3.65-4.36 3.66-1.62.02-2.04-1.05-4.25-1.04-2.21.01-2.66 1.06-4.29 1.04-1.84-.02-3.23-1.85-4.28-3.47C-.59 16.06-.92 10.55 1.6 7.34c1.36-1.74 3.51-2.76 5.55-2.76 2.07 0 3.37 1.13 5.08 1.13 1.66 0 2.67-1.13 5.07-1.13 1.81 0 3.74.99 5.11 2.69-4.49 2.46-3.76 8.86-1.41 10.07z" />
+    </svg>
+  );
+}
+
 function QloCustomerCard() {
   return (
     <div className="rounded-2xl overflow-hidden border border-ink-900/10 bg-ink-950 text-bone-50 shadow-card">
       <div className="px-5 py-4 border-b border-bone-50/10 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-[0.22em] text-bone-200/70">Customer view &middot; QLO app</span>
+        <div className="flex items-center gap-3">
+          <img src={qloIconDark} alt="" className="h-8 w-8 rounded-lg" aria-hidden />
+          <span className="text-[10px] uppercase tracking-[0.22em] text-bone-200/70">Customer view &middot; Qlo app</span>
+        </div>
         <span className="rounded-full bg-italia-green text-bone-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">Live</span>
       </div>
       <div className="p-5 grid sm:grid-cols-2 gap-3">
@@ -936,28 +974,67 @@ function SelectField({ label, name, options }: { label: string; name: string; op
 export function CTA({ href = '/contact-us' }: { href?: string }) {
   return (
     <section className="mx-auto max-w-6xl px-5">
-      <div className="relative overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-950 text-bone-50 p-8 md:p-14 text-center">
+      <div className="relative overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-950 text-bone-50 p-8 md:p-14">
         <div className="absolute top-0 left-0 right-0 italia-stripe h-1.5" aria-hidden />
-        <h2 className="font-display text-2xl sm:text-3xl md:text-5xl">A modern home for an Italian craft.</h2>
-        <p className="mt-4 text-bone-200/85 max-w-2xl mx-auto leading-relaxed">
-          Mobile-first, fast, easy to update. Built around your brand, your photos, your reviews.
-          Optional online booking on the day you decide you want it.
-        </p>
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <Link to={href} className="rounded-full bg-italia-red px-6 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 transition">
-            Talk to us
-          </Link>
-          <a
-            href="https://www.appeningnow.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="rounded-full border border-bone-50/20 px-6 py-3 text-sm font-semibold text-bone-50 hover:bg-white/10 transition"
-          >
-            Visit Appening Now
-          </a>
+        <div className="grid md:grid-cols-12 gap-8 md:gap-10 items-center">
+          <div className="md:col-span-7 text-center md:text-left">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-5xl">A modern home for an Italian craft.</h2>
+            <p className="mt-4 text-bone-200/85 max-w-xl mx-auto md:mx-0 leading-relaxed">
+              Mobile-first, fast, easy to update. Built around your brand, your photos, your reviews.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <Link to={href} className="rounded-full bg-italia-red px-6 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 transition">
+                Talk to us
+              </Link>
+              <a
+                href="https://www.appeningnow.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="rounded-full border border-bone-50/20 px-6 py-3 text-sm font-semibold text-bone-50 hover:bg-white/10 transition"
+              >
+                Visit Appening Now
+              </a>
+            </div>
+          </div>
+
+          <div className="md:col-span-5">
+            <div className="rounded-2xl border border-bone-50/15 bg-bone-50/5 p-6 sm:p-7 backdrop-blur-sm">
+              <div className="text-[10px] uppercase tracking-[0.22em] text-italia-red font-semibold">
+                This exact site, built for you
+              </div>
+              <div className="mt-2 flex items-baseline gap-3">
+                <span className="font-display text-5xl sm:text-6xl text-bone-50">£500</span>
+                <span className="text-sm text-bone-200/80 font-semibold">+ VAT</span>
+              </div>
+              <p className="mt-3 text-sm text-bone-100/85 leading-relaxed">
+                One flat price for the website refresh. Walk-in features and online booking are
+                optional add-ons, only if you ever want them.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-bone-100/90">
+                <Tick>Mobile-first one-pager, both salons</Tick>
+                <Tick>Real photos, real reviews, your brand</Tick>
+                <Tick>Hosted, fast, simple to update</Tick>
+                <Tick>No tie-ins, no obligation, no chasing</Tick>
+              </ul>
+              <p className="mt-4 text-xs text-bone-200/70 italic">
+                If it&apos;s a no, that&apos;s OK too. Either way, we hope you like the prototype.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Tick({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2.5">
+      <svg viewBox="0 0 24 24" width={16} height={16} fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 text-italia-green shrink-0">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+      <span>{children}</span>
+    </li>
   );
 }
 
