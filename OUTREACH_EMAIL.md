@@ -34,7 +34,7 @@ addresses, your real reviews.
 
 Have a look:
 
-  https://demilia-barbers.vercel.app
+  https://demilia-barbers.vercel.app/?via=email
 
 It's a live prototype, six pages, mobile-first. Open it on a phone,
 click around, screenshot anything you like. There's a small green
@@ -94,10 +94,44 @@ Both are 1280x800 PNGs ready to attach.
 
 | What | URL |
 | --- | --- |
-| Home | https://demilia-barbers.vercel.app/ |
+| Home (tracked email link) | https://demilia-barbers.vercel.app/?via=email |
+| Home (plain) | https://demilia-barbers.vercel.app/ |
 | About | https://demilia-barbers.vercel.app/about-us |
 | Brentwood | https://demilia-barbers.vercel.app/brentwoodsalon |
 | Upminster | https://demilia-barbers.vercel.app/upminstersalon |
 | Gallery | https://demilia-barbers.vercel.app/gallery |
 | Contact | https://demilia-barbers.vercel.app/contact-us |
 | GitHub | https://github.com/kozmickb/demilia-barbers |
+
+## Watching for engagement
+
+Once you send, check the Vercel Analytics dashboard:
+
+  https://vercel.com/karos-projects-3f56d00b/demilia-barbers/analytics
+
+What to look for:
+- **Page Views**: any non-zero number above your own visits = they (or their team) clicked
+- **Top Pages**: if /about-us, /brentwoodsalon, /gallery all appear, they explored
+- **Top Referrers**: a hit with no referrer + path "/?via=email" = your email link
+- **Country/Region**: a hit from "Essex" or "Greater London" = strong signal it's them
+- **Time-on-page**: > 60s on multiple pages = they actually read it
+
+Vercel Analytics is cookieless and shows aggregate visits only (no individual
+IPs, no fingerprints). If you want to literally watch their cursor move, see
+PostHog setup notes below.
+
+## Optional: PostHog session replay
+
+PostHog will record a replay of every visit so you can watch the prospect's
+mouse drift over the page, see exactly which sections they expand, when they
+bounce. Setup is ~10 minutes:
+
+1. Go to https://eu.posthog.com/projects/new and create a project named
+   "demilia-barbers"
+2. Copy the project's Web API key (starts with phc_...)
+3. Tell Claude the key, and Claude will install posthog-js + wire it into
+   the React tree, redeploy, and you'll see sessions appear in the PostHog
+   "Replays" tab as they happen
+4. Optional: set up a PostHog Alert that emails you the moment a new visitor
+   from Essex hits the site - so the first time De'Milia opens the email you
+   get a ping
