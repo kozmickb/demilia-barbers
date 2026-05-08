@@ -1291,7 +1291,7 @@ export function Footer() {
       <div className="border-t border-ink-900/10">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs text-ink-500 flex flex-wrap items-center justify-between gap-3">
           <span>&copy; {new Date().getFullYear()} De&apos;Milia Barbers. Prototype, not a live site.</span>
-          <span>No tracking. No cookies. No nonsense.</span>
+          <span>Aggregate analytics only. No cookies, no personal tracking.</span>
         </div>
       </div>
     </footer>

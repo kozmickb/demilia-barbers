@@ -1,4 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { SiteLayout } from './layouts/SiteLayout';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -20,6 +22,8 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
+      <Analytics />
+      <SpeedInsights />
     </BrowserRouter>
   );
 }
