@@ -5,6 +5,8 @@ import shopBrentwood from './assets/demilia-shop2.jpg';
 import shopUpminster from './assets/demilia-hero.jpg';
 import { Gallery } from './components/Gallery';
 import { Tweaker } from './components/Tweaker';
+import { ScrollToTop } from './components/ScrollToTop';
+import { ScissorsTrail } from './components/ScissorsTrail';
 import { ThemeProvider } from './theme/ThemeProvider';
 
 const NAV = [
@@ -151,6 +153,8 @@ export default function App() {
         <Contact />
         <CTA />
         <Footer />
+        <ScissorsTrail />
+        <ScrollToTop />
         <Tweaker />
       </div>
     </ThemeProvider>

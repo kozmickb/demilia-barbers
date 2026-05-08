@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTheme, type AccentKey, type DensityKey, type FontKey, type ThemeMode } from '../theme/ThemeProvider';
 
+const HINT_KEY = 'demilia-tweaker-hint-seen';
+
 const ACCENTS: Array<{ key: AccentKey; label: string; primary: string; secondary: string }> = [
   { key: 'emerald', label: 'Italian Emerald', primary: '#0a6b3b', secondary: '#b71c2a' },
   { key: 'navy', label: 'Espresso Navy', primary: '#1e3a5f', secondary: '#c18a5a' },
@@ -23,6 +25,7 @@ const DENSITIES: Array<{ key: DensityKey; label: string; hint: string }> = [
 export function Tweaker() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [hintVisible, setHintVisible] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -33,17 +36,73 @@ export function Tweaker() {
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // First-visit attention chip. Shows after a short delay, hides on first
+  // open or after 14 seconds. Persists "seen" so it never reappears.
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = localStorage.getItem(HINT_KEY) === '1';
+    } catch {
+      // ignore
+    }
+    if (seen) return;
+    const showT = window.setTimeout(() => setHintVisible(true), 1400);
+    const hideT = window.setTimeout(() => {
+      setHintVisible(false);
+      try { localStorage.setItem(HINT_KEY, '1'); } catch { /* ignore */ }
+    }, 14000);
+    return () => {
+      window.clearTimeout(showT);
+      window.clearTimeout(hideT);
+    };
+  }, []);
+
+  // Dismiss the chip the moment the user opens the drawer.
+  useEffect(() => {
+    if (!open) return;
+    setHintVisible(false);
+    try { localStorage.setItem(HINT_KEY, '1'); } catch { /* ignore */ }
+  }, [open]);
+
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close style tweaks' : 'Open style tweaks'}
-        aria-expanded={open}
-        className="fixed bottom-5 right-5 z-40 grid h-12 w-12 place-items-center rounded-full border border-ink-900/15 bg-italia-green text-bone-50 shadow-card hover:scale-105 active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-italia-red"
-      >
-        <SlidersIcon className="h-5 w-5" />
-      </button>
+      <div className="fixed bottom-5 right-5 z-40">
+        {/* Pulsing spotlight ring while the hint is visible */}
+        {!open && hintVisible && (
+          <>
+            <span className="pointer-events-none absolute inset-0 rounded-full bg-italia-green/30 animate-ping" aria-hidden />
+            <span className="pointer-events-none absolute -inset-2 rounded-full bg-italia-green/10 blur-md" aria-hidden />
+          </>
+        )}
+
+        {/* Attention chip floating above the FAB, with a tail pointing down */}
+        {!open && hintVisible && (
+          <div
+            role="status"
+            className="absolute bottom-[3.75rem] right-0 mb-1 flex items-center gap-2 rounded-full border border-ink-900/10 bg-ink-950 text-bone-50 px-4 py-2 text-xs font-semibold shadow-card whitespace-nowrap"
+          >
+            Make it yours
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="13 6 19 12 13 18" />
+            </svg>
+            <span
+              className="absolute -bottom-1 right-5 h-2 w-2 rotate-45 bg-ink-950 border-r border-b border-ink-900/10"
+              aria-hidden
+            />
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'Close style tweaks' : 'Open style tweaks'}
+          aria-expanded={open}
+          className="relative grid h-12 w-12 place-items-center rounded-full border border-ink-900/15 bg-italia-green text-bone-50 shadow-card hover:scale-105 active:scale-95 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-italia-red"
+        >
+          <SlidersIcon className="h-5 w-5" />
+        </button>
+      </div>
 
       {open && (
         <div
