@@ -1,7 +1,7 @@
 import posthog from 'posthog-js';
 
 const POSTHOG_KEY = 'phc_oXvHtxfQQmL9bRH3MdnZbU4JVoTp7XCGUS6tNp9ZPXkz';
-const POSTHOG_HOST = 'https://eu.i.posthog.com';
+const POSTHOG_HOST = 'https://us.i.posthog.com';
 
 let initialized = false;
 
@@ -12,7 +12,7 @@ export function initPostHog() {
 
   posthog.init(POSTHOG_KEY, {
     api_host: POSTHOG_HOST,
-    ui_host: 'https://eu.posthog.com',
+    ui_host: 'https://us.posthog.com',
     person_profiles: 'always',
     autocapture: true,
     capture_pageview: false, // SPA - we trigger manually on route change
