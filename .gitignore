@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+.env
+.env.local
+.firecrawl
+.playwright-cli
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
