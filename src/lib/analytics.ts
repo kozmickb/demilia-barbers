@@ -21,8 +21,12 @@ export function initPostHog() {
         ph.register({ via: 'email', acquisition_source: 'cold-outreach-2026' });
       }
       ph.capture('analytics_initialized');
+      // eslint-disable-next-line no-console
+      console.info('[posthog] loaded', { id: ph.get_distinct_id?.(), host: POSTHOG_HOST });
     },
   });
+  // eslint-disable-next-line no-console
+  console.info('[posthog] init called', { key: POSTHOG_KEY.slice(0, 12) + '...', host: POSTHOG_HOST });
 }
 
 /** Fire-and-forget custom event helper for high-signal interactions. */
