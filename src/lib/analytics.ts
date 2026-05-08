@@ -31,7 +31,7 @@ export function initPostHog() {
         ph.register({ via: 'email', acquisition_source: 'cold-outreach-2026' });
       }
       // Send a confirmation event so we know the wire works end-to-end
-      ph.capture('analytics_initialized', { sdk_version: ph.LIB_VERSION });
+      ph.capture('analytics_initialized');
     },
   });
 }
