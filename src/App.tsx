@@ -3,12 +3,13 @@ import logoUrl from './assets/demilia-logo.png';
 import heroImg from './assets/demilia-shop1.png';
 import shopBrentwood from './assets/demilia-shop2.jpg';
 import shopUpminster from './assets/demilia-hero.jpg';
+import { Gallery } from './components/Gallery';
 
 const NAV = [
   { label: 'Services', href: '#services' },
+  { label: 'Gallery', href: '#gallery' },
   { label: 'The Chair', href: '#team' },
   { label: 'Salons', href: '#locations' },
-  { label: 'Reviews', href: '#reviews' },
 ];
 
 const SERVICES = [
@@ -130,6 +131,7 @@ export default function App() {
       />
       <Services />
       <Team />
+      <Gallery />
       <Reviews />
       <Locations />
       <CTA />
@@ -505,10 +507,14 @@ function TeamCard({ name, role, years, shop }: { name: string; role: string; yea
 function Reviews() {
   return (
     <section id="reviews" className="mx-auto max-w-6xl px-5 py-16 md:py-20">
-      <div className="flex items-end justify-between gap-6 mb-8">
+      <div className="flex flex-wrap items-end justify-between gap-6 mb-8">
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-italia-green font-semibold">What clients say</p>
           <h2 className="mt-2 font-display text-3xl md:text-5xl text-ink-950">Five-star regulars across both salons.</h2>
+        </div>
+        <div className="rounded-full border border-ink-900/10 bg-white px-4 py-2 text-sm font-semibold text-ink-900 flex items-center gap-2 shadow-card">
+          <span className="text-italia-red text-base">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>130+ 5-star reviews on Google</span>
         </div>
       </div>
       <div className="grid md:grid-cols-3 gap-4">
