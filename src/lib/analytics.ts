@@ -1,44 +1,17 @@
-import posthog from 'posthog-js';
+import { track as vercelTrack } from '@vercel/analytics';
 
-const POSTHOG_KEY = 'phc_oXvHtxfQQmL9bRH3MdnZbU4JVoTp7XCGUS6tNp9ZPXkz';
-// Reverse-proxied through Vercel (vercel.json rewrites /ingest/* -> us.i.posthog.com/*)
-// so ad / tracker blockers don't see "posthog.com" in the request URL.
-const POSTHOG_HOST = '/ingest';
-
-let initialized = false;
-
-export function initPostHog() {
-  if (typeof window === 'undefined') return;
-  if (initialized) return;
-  initialized = true;
-
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_HOST,
-    ui_host: 'https://us.posthog.com',
-    capture_pageview: 'history_change', // SDK-managed SPA pageviews
-    loaded: (ph) => {
-      (window as unknown as { posthog: typeof ph }).posthog = ph;
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('via') === 'email') {
-        ph.register({ via: 'email', acquisition_source: 'cold-outreach-2026' });
-      }
-      ph.capture('analytics_initialized');
-      // eslint-disable-next-line no-console
-      console.info('[posthog] loaded', { id: ph.get_distinct_id?.(), host: POSTHOG_HOST });
-    },
-  });
-  // eslint-disable-next-line no-console
-  console.info('[posthog] init called', { key: POSTHOG_KEY.slice(0, 12) + '...', host: POSTHOG_HOST });
-}
-
-/** Fire-and-forget custom event helper for high-signal interactions. */
-export function track(event: string, props: Record<string, unknown> = {}) {
+/**
+ * Fire-and-forget custom event helper. Wraps Vercel Analytics' track()
+ * so analytics never blocks the UI thread or throws into render.
+ *
+ * Page views and route changes are handled automatically by the
+ * <Analytics /> component mounted in App.tsx - no manual SPA tracker needed.
+ */
+export function track(event: string, props: Record<string, string | number | boolean | null> = {}) {
   if (typeof window === 'undefined') return;
   try {
-    posthog.capture(event, props);
+    vercelTrack(event, props);
   } catch {
-    // ignore - never let analytics break the page
+    // never let analytics break the page
   }
 }
-
-export { posthog };
