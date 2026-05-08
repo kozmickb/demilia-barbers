@@ -40,7 +40,7 @@ export function Hero() {
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               to="/about-us"
-              className="rounded-full bg-ink-950 px-5 py-3 text-sm font-semibold text-bone-50 hover:bg-ink-800 transition"
+              className="rounded-full bg-italia-red px-6 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 shadow-card transition"
             >
               See the refresh
             </Link>
@@ -52,15 +52,22 @@ export function Hero() {
             </Link>
             <a
               href="#qlo"
-              className="rounded-full border border-italia-red/40 bg-italia-red/5 px-5 py-3 text-sm font-semibold text-italia-red hover:bg-italia-red/10 transition"
+              className="rounded-full border border-ink-900/15 px-5 py-3 text-sm font-semibold text-ink-900 hover:bg-ink-950/5 transition"
             >
-              + QLO for walk-ins
+              + Qlo for walk-ins
             </a>
           </div>
           <dl className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
             <Stat value="20+ yrs" label="per master barber" />
             <Stat value="Since 2004" label="Italian heritage" />
-            <Stat value="130+" label="5-star Google reviews" />
+            <Stat
+              value={
+                <span className="inline-flex items-baseline gap-1.5">
+                  <span aria-hidden className="text-italia-red">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                </span>
+              }
+              label="130+ Google reviews"
+            />
           </dl>
         </div>
         <div className="md:col-span-5">
@@ -71,7 +78,7 @@ export function Hero() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
+function Stat({ value, label }: { value: React.ReactNode; label: string }) {
   return (
     <div>
       <dt className="font-display text-xl sm:text-2xl text-ink-950">{value}</dt>
@@ -974,10 +981,10 @@ function SelectField({ label, name, options }: { label: string; name: string; op
 export function CTA({ href = '/contact-us' }: { href?: string }) {
   return (
     <section className="mx-auto max-w-6xl px-5">
-      <div className="relative overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-950 text-bone-50 p-8 md:p-14">
+      <div className="relative overflow-hidden rounded-3xl border border-ink-900/10 bg-ink-950 text-bone-50 p-7 sm:p-8 md:p-14">
         <div className="absolute top-0 left-0 right-0 italia-stripe h-1.5" aria-hidden />
         <div className="grid md:grid-cols-12 gap-8 md:gap-10 items-center">
-          <div className="md:col-span-7 text-center md:text-left">
+          <div className="order-2 md:order-1 md:col-span-7 text-center md:text-left">
             <h2 className="font-display text-2xl sm:text-3xl md:text-5xl">A modern home for an Italian craft.</h2>
             <p className="mt-4 text-bone-200/85 max-w-xl mx-auto md:mx-0 leading-relaxed">
               Mobile-first, fast, easy to update. Built around your brand, your photos, your reviews.
@@ -990,15 +997,16 @@ export function CTA({ href = '/contact-us' }: { href?: string }) {
                 href="https://www.appeningnow.com/"
                 target="_blank"
                 rel="noreferrer noopener"
-                className="rounded-full border border-bone-50/20 px-6 py-3 text-sm font-semibold text-bone-50 hover:bg-white/10 transition"
+                className="text-sm text-bone-200/70 underline-offset-4 hover:underline hover:text-bone-50 transition"
               >
-                Visit Appening Now
+                appeningnow.com &rarr;
               </a>
             </div>
           </div>
 
-          <div className="md:col-span-5">
-            <div className="rounded-2xl border border-bone-50/15 bg-bone-50/5 p-6 sm:p-7 backdrop-blur-sm">
+          <div className="order-1 md:order-2 md:col-span-5">
+            <div className="relative overflow-hidden rounded-2xl border border-bone-50/15 bg-bone-50/5 p-6 sm:p-7 backdrop-blur-sm">
+              <div className="absolute top-0 left-0 right-0 italia-stripe h-1" aria-hidden />
               <div className="text-[10px] uppercase tracking-[0.22em] text-italia-red font-semibold">
                 This exact site, built for you
               </div>
