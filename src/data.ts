@@ -1,5 +1,5 @@
-import shopBrentwood from './assets/demilia-shop2.jpg';
-import shopUpminster from './assets/demilia-hero.jpg';
+import shopBrentwood from './assets/salon-brentwood.jpg';
+import shopUpminster from './assets/salon-upminster.jpg';
 
 export type Service = { name: string; time: string; price: string };
 export type Review = { name: string; where: 'Brentwood' | 'Upminster'; body: string };
