@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Reveal } from './components/Reveal';
+import { Counter, HeroOrbs, Marquee, Parallax, Tilt, WordReveal } from './components/effects';
 import logoUrl from './assets/demilia-logo.png';
 import heroImg from './assets/demilia-shop1.png';
 import qloLogoUrl from './assets/qlo-logo.png';
@@ -23,15 +24,20 @@ import {
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
+      <HeroOrbs />
       <div className="absolute inset-0 cream-grain opacity-60" aria-hidden />
       <div className="relative mx-auto max-w-6xl px-5 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-7">
           <span className="inline-flex items-center gap-2 rounded-full border border-italia-green/30 bg-italia-green/5 px-3 py-1 text-xs font-medium text-italia-green">
-            <span className="h-1.5 w-1.5 rounded-full bg-italia-green" />
+            <span className="h-1.5 w-1.5 rounded-full bg-italia-green animate-pulse" />
             Website refresh proposal &middot; Brentwood &amp; Upminster
           </span>
           <h1 className="mt-5 font-display font-semibold text-4xl sm:text-5xl md:text-7xl leading-[1.02] md:leading-[0.98] tracking-tight text-ink-950">
-            A site that does justice to <em className="text-italia-red not-italic">twenty plus years</em> of craft.
+            <WordReveal text="A site that does justice to" />{' '}
+            <em className="text-italia-red not-italic">
+              <WordReveal text="twenty plus years" stagger={70} />
+            </em>{' '}
+            <WordReveal text="of craft." stagger={70} />
           </h1>
           <p className="mt-5 text-base sm:text-lg text-ink-700 max-w-xl leading-relaxed">
             We loved that you&apos;re one of the best-rated barbers in Brentwood and Upminster, with
@@ -41,7 +47,7 @@ export function Hero() {
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               to="/about-us"
-              className="rounded-full bg-italia-red px-6 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 shadow-card transition"
+              className="rounded-full bg-italia-red px-6 py-3 text-sm font-semibold text-bone-50 hover:opacity-90 hover:scale-[1.02] shadow-card transition"
             >
               See the refresh
             </Link>
@@ -59,7 +65,10 @@ export function Hero() {
             </a>
           </div>
           <dl className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
-            <Stat value="20+ yrs" label="per master barber" />
+            <Stat
+              value={<Counter value={20} suffix="+ yrs" />}
+              label="per master barber"
+            />
             <Stat value="Since 2004" label="Italian heritage" />
             <Stat
               value={
@@ -67,19 +76,23 @@ export function Hero() {
                   <span aria-hidden className="text-italia-red">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                 </span>
               }
-              label="130+ Google reviews"
+              label={<><Counter value={130} suffix="+" /> Google reviews</>}
             />
           </dl>
         </div>
         <div className="md:col-span-5">
-          <HeroCard />
+          <Parallax speed={-0.08}>
+            <Tilt max={4}>
+              <HeroCard />
+            </Tilt>
+          </Parallax>
         </div>
       </div>
     </section>
   );
 }
 
-function Stat({ value, label }: { value: React.ReactNode; label: string }) {
+function Stat({ value, label }: { value: React.ReactNode; label: React.ReactNode }) {
   return (
     <div>
       <dt className="font-display text-xl sm:text-2xl text-ink-950 tabular-nums">{value}</dt>
@@ -120,6 +133,36 @@ function HeroCard() {
         </div>
       </div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------ Brand marquee */
+
+const MARQUEE_TOKENS = [
+  'ESTD 2004',
+  'ITALIAN BARBERSHOP',
+  'BRENTWOOD',
+  '20+ YEARS AT THE CHAIR',
+  'UPMINSTER',
+  'HOT TOWEL SHAVES',
+  '130+ FIVE-STAR REVIEWS',
+  'WALK-INS WELCOME',
+];
+
+export function BrandMarquee() {
+  return (
+    <section className="bg-ink-950 text-bone-50 border-y border-ink-900/20 relative overflow-hidden" style={{ paddingTop: 0, paddingBottom: 0 }}>
+      <div className="italia-stripe absolute top-0 left-0 right-0 h-px opacity-50" aria-hidden />
+      <Marquee speed={48} className="py-4">
+        {MARQUEE_TOKENS.concat(MARQUEE_TOKENS).map((t, i) => (
+          <span key={i} className="flex items-center gap-6 px-6 font-display text-base sm:text-lg uppercase tracking-[0.18em]">
+            <span>{t}</span>
+            <span aria-hidden className="text-italia-red opacity-80">&#10022;</span>
+          </span>
+        ))}
+      </Marquee>
+      <div className="italia-stripe absolute bottom-0 left-0 right-0 h-px opacity-50" aria-hidden />
+    </section>
   );
 }
 

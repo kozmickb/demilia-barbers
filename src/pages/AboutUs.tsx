@@ -1,4 +1,5 @@
 import { About, CTA, Reviews, StylishPhoto, Team } from '../sections';
+import { Tilt } from '../components/effects';
 import teamPhoto from '../assets/demilia-shop2.jpg';
 
 export default function AboutUs() {
@@ -18,14 +19,16 @@ export default function AboutUs() {
             </p>
           </div>
           <div className="md:col-span-5">
-            <div className="rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
-              <StylishPhoto
-                src={teamPhoto}
-                alt="The De'Milia team with a regular client"
-                className="aspect-[4/5]"
-                position="object-center"
-              />
-            </div>
+            <Tilt max={5}>
+              <div className="rounded-2xl overflow-hidden border border-ink-900/10 bg-bone-50 shadow-card">
+                <StylishPhoto
+                  src={teamPhoto}
+                  alt="The De'Milia team with a regular client"
+                  className="aspect-[4/5]"
+                  position="object-center"
+                />
+              </div>
+            </Tilt>
           </div>
         </div>
       </section>
