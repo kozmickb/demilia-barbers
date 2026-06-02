@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import AccessGate from './gate/AccessGate';
 import { SiteLayout } from './layouts/SiteLayout';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -10,6 +11,7 @@ import ContactPage from './pages/ContactPage';
 
 export default function App() {
   return (
+    <AccessGate>
     <BrowserRouter>
       <Routes>
         <Route element={<SiteLayout />}>
@@ -25,5 +27,6 @@ export default function App() {
       <Analytics />
       <SpeedInsights />
     </BrowserRouter>
+    </AccessGate>
   );
 }
