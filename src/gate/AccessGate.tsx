@@ -12,7 +12,8 @@ import shotPricing from '../assets/preview-04-pricing.png';
 /* ------------------------------------------------------------------ */
 const ACCESS_CODE = 'demilia2026';
 const STORAGE_KEY = 'demilia-gate-v1';
-const CONTACT_EMAIL = 'karo.bonas@gmail.com';
+// WhatsApp Business "short link" — opens a chat without exposing the number.
+const CONTACT_WHATSAPP = 'https://wa.me/message/AICP4RY7KGDJP1';
 
 export function hasAccess(): boolean {
   if (typeof window === 'undefined') return false;
@@ -106,7 +107,7 @@ export default function AccessGate({ children }: { children: ReactNode }) {
 
           <p className="gate-ask">
             Want to see more?{' '}
-            <a href={`mailto:${CONTACT_EMAIL}?subject=De'Milia%20site%20preview%20access`}>
+            <a href={CONTACT_WHATSAPP} target="_blank" rel="noopener noreferrer">
               Speak with Karo Bonas
             </a>{' '}
             to retrieve the password and view the rest of the site.
