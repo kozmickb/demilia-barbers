@@ -1,137 +1,117 @@
-# De'Milia Barbers - Outreach Email
+# De'Milia Barbers — Outreach Email (v2 · gated preview + GIF + WhatsApp)
 
 **To:** info@demiliabarbers.co.uk
-**Cc/Bcc:** (your call)
 **From:** karo@appeningnow.com
+
+> **What changed in v2:** the live site is now a **private preview** (access code).
+> So the email no longer says "click around" — instead the **GIF does the selling
+> inside the message**, and the access code is the reason to start a conversation:
+> *WhatsApp me for the code.* That turns a link they ignored once into a reply.
 
 ---
 
 ## Subject options (pick one)
 
-1. Built you a site mockup, you decide if it's a fit
+1. Built you a site mockup — 6-second preview inside
 2. From a neighbour up the A12, with a small gift
-3. Quick one for Arnie - new site mockup, no obligation
+3. Quick one for Arnie — new site preview, no obligation
 
-Recommended: **#1** (specific, sets expectation, low pressure).
+Recommended: **#1** (specific, sets expectation, hints at the GIF).
 
 ---
 
 ## Body
 
+> **Lead with the GIF.** In Gmail compose, drag `marketing/demilia-site-preview.gif`
+> straight into the body so it sits **above** the first line and animates on open.
+> (First frame is the hero, so even Outlook-desktop — which shows only frame 1 —
+> still looks good.)
+
 ```
 Hi Arnie,
 
+[ animated preview GIF here ]
+
 We loved that you're one of the best-rated barbers in Brentwood and
-Upminster, with staff boasting over 20 years of experience. Here's
-how we'd build on that.
+Upminster, with staff boasting over 20 years of experience. So I built
+you what we'd ship as a website refresh — same brand, your real photos,
+your real addresses, your real reviews. That clip above is the actual
+thing, moving.
 
-I'm Karo, I run Appening Now, a small AI and software consultancy
-in Ingatestone, just up the A12 from your Brentwood shop. I noticed
-the current site still routes "Book Now" to a contact form, and
-that De'Milia is really a walk-in shop, so I built you what we'd
-ship as a website refresh. Same brand, your real photos, your real
-addresses, your real reviews.
+I'm Karo. I run Appening Now, a small AI and software studio in
+Ingatestone, just up the A12 from your Brentwood shop. I noticed the
+current site still routes "Book Now" to a contact form when De'Milia
+is really a walk-in shop — so the refresh is built around walk-ins.
 
-Have a look:
+The full site is live but password-protected while it's in preview.
+WhatsApp me and I'll send you the code straight away:
 
-  https://demilia-barbers.vercel.app/?via=email
+  https://wa.me/message/AICP4RY7KGDJP1
 
-It's a live prototype, six pages, mobile-first. Open it on a phone,
-click around, screenshot anything you like. There's a small green
-button in the bottom-right that lets you swap the colours, fonts,
-layout density and dark mode in real time, in case you or the team
-want to play with the look before deciding.
+(or just reply to this email and I'll fire it over). Once you're in,
+it's six pages, mobile-first — open it on your phone, click around,
+screenshot anything. There's even a little button to swap the colours,
+fonts and dark mode in real time if you or the team want to play.
 
-The price for the website refresh is GBP 500 + VAT. One flat fee,
-the site as you see it. No tie-ins, no monthly fees to us, no
-chasing.
+The price for the refresh is GBP 500 + VAT. One flat fee, the site as
+you see it. No tie-ins, no monthly fees, no chasing.
 
-Two things I built in that are completely optional and not part of
-the GBP 500:
+One optional extra, not part of the GBP 500 — Qlo, our walk-ins app,
+live on the App Store: https://apps.apple.com/app/id6757822508
+Live wait times, smart nudges when one shop is quiet, no diary to
+babysit. Already running with another local barber.
 
-1. Qlo, our walk-ins app, live on the App Store:
-   https://apps.apple.com/app/id6757822508
-   Live wait times, smart nudges when one shop is quiet, no diary
-   to babysit. Already running with another local barber.
-
-2. A booking page demo, only if you ever change your mind on
-   bookings. Tucked behind a click on the home page so it doesn't
-   get in the way.
-
-If it's a yes on the website, reply and we'll grab a coffee in
-Brentwood and tighten the copy / photos with the team. If it's a
-no, that's OK too, hope you like what's there either way.
+If it's a yes, we'll grab a coffee in Brentwood and tighten the copy
+and photos with the team. If it's a no, that's OK too — hope you like
+what's there either way.
 
 Either way, thanks for keeping the chair sharp in Essex for over
 twenty years.
 
 Karo Bonas
-Appening Now
-karo@appeningnow.com
-appeningnow.com
+Appening Now · appeningnow.com
+WhatsApp: https://wa.me/message/AICP4RY7KGDJP1
 ```
 
 ---
 
 ## Notes for sending
 
-- **Plain text only.** No HTML, no inline images. The link does the work.
-- **Send Tuesday or Wednesday morning** (best response window for SMB owners).
-- **From a personal-looking email** (karo@ not info@) - the message is one human to another.
-- **Don't attach screenshots** - the link IS the visual. If they want a screenshot, the live site is one tap away.
-- **Follow up once after 5 working days** if no reply, single line: "Bumping this in case it got buried, no pressure either way."
+- **GIF-forward now, not plain text.** The old plain-text link didn't land — this
+  time the visual hook is in the inbox before they decide whether to click.
+- **Don't put the access code in the email.** The code is the reason to reply /
+  WhatsApp — that's the engagement mechanic. (If you'd rather remove all friction,
+  you *can* paste the code `demilia2026` instead — but then you lose the contact moment.)
+- **Send Tuesday or Wednesday morning** (best SMB-owner response window).
+- **From a personal-looking address** (karo@, not info@) — one human to another.
+- **Follow up once after 5 working days**, single line:
+  "Bumping this in case it got buried — happy to WhatsApp you the preview code, no pressure."
 
-## Companion screenshots (already in /screenshots)
+## The GIF asset
 
-If you decide to attach one image as a teaser, use:
+- `marketing/demilia-site-preview.gif` — 1.6 MB looping crossfade (hero → your story →
+  Qlo booking → pricing). Use it inline in email **and** as the first WhatsApp message.
+- Stills if you want one static teaser instead: `screenshots/02-pullquote.png` (brand)
+  or `screenshots/04-pricing.png` (price hook). Both 1280×800.
 
-- `screenshots/02-pullquote.png` for emotional / brand impact
-- `screenshots/04-pricing.png` if you want the price to be the hook
+## Access code
 
-Both are 1280x800 PNGs ready to attach.
+- Current preview code: **`demilia2026`** (change in `src/gate/AccessGate.tsx`, line 26).
+- Hand it out over WhatsApp/reply. One code for all prospects is fine at this volume.
 
-## Live URLs to verify before sending
+## Live URLs
 
 | What | URL |
 | --- | --- |
-| Home (tracked email link) | https://demilia-barbers.vercel.app/?via=email |
-| Home (plain) | https://demilia-barbers.vercel.app/ |
-| About | https://demilia-barbers.vercel.app/about-us |
-| Brentwood | https://demilia-barbers.vercel.app/brentwoodsalon |
-| Upminster | https://demilia-barbers.vercel.app/upminstersalon |
-| Gallery | https://demilia-barbers.vercel.app/gallery |
-| Contact | https://demilia-barbers.vercel.app/contact-us |
+| Gated preview (what they land on) | https://demilia-barbers.vercel.app/ |
+| WhatsApp (Business short link) | https://wa.me/message/AICP4RY7KGDJP1 |
 | GitHub | https://github.com/kozmickb/demilia-barbers |
 
 ## Watching for engagement
 
-Once you send, check the Vercel Analytics dashboard:
+Vercel Analytics (cookieless, aggregate): https://vercel.com/karos-projects-3f56d00b/demilia-barbers/analytics
 
-  https://vercel.com/karos-projects-3f56d00b/demilia-barbers/analytics
-
-What to look for:
-- **Page Views**: any non-zero number above your own visits = they (or their team) clicked
-- **Top Pages**: if /about-us, /brentwoodsalon, /gallery all appear, they explored
-- **Top Referrers**: a hit with no referrer + path "/?via=email" = your email link
-- **Country/Region**: a hit from "Essex" or "Greater London" = strong signal it's them
-- **Time-on-page**: > 60s on multiple pages = they actually read it
-
-Vercel Analytics is cookieless and shows aggregate visits only (no individual
-IPs, no fingerprints). If you want to literally watch their cursor move, see
-PostHog setup notes below.
-
-## Optional: PostHog session replay
-
-PostHog will record a replay of every visit so you can watch the prospect's
-mouse drift over the page, see exactly which sections they expand, when they
-bounce. Setup is ~10 minutes:
-
-1. Go to https://eu.posthog.com/projects/new and create a project named
-   "demilia-barbers"
-2. Copy the project's Web API key (starts with phc_...)
-3. Tell Claude the key, and Claude will install posthog-js + wire it into
-   the React tree, redeploy, and you'll see sessions appear in the PostHog
-   "Replays" tab as they happen
-4. Optional: set up a PostHog Alert that emails you the moment a new visitor
-   from Essex hits the site - so the first time De'Milia opens the email you
-   get a ping
+- **Page Views** above your own = someone opened the gate page.
+- A spike in views with **few unlocks** = the GIF is landing but the gate is too much friction → consider including the code next round.
+- **Region = Essex / Greater London** = likely them.
+- The real signal now lives in **WhatsApp**: a message from a new number after a send = the funnel worked.
